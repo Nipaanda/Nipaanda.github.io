@@ -6,7 +6,7 @@ body {
 
 .main-body {
     position: relative;
-    height: 100vh;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,8 +17,8 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background-image: url('../Content/Background_Picture.jpg');
     background-size: cover;
     background-position: center;
@@ -27,11 +27,34 @@ body {
     z-index: -1;
 }
 
-.profile-picture {
+.profile-picture-wrapper {
     width: 200px;
     height: 200px;
     border-radius: 50%;
+    margin-top: 10px;
     margin-bottom: 20px;
+    position: relative;
+}
+
+.profile-picture {
+    max-width: 100%;
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
+}
+
+.profile-ring {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: calc(100% + 10px);
+    height: calc(100% + 10px);
+    border-radius: 50%;
+    background: linear-gradient(
+        magenta,
+        cyan
+    );
+    animation: rotate-ring 10s linear infinite;
 }
 
 .social-links {
@@ -39,29 +62,83 @@ body {
 }
 
 .social-icon-wrapper {
-    width: 80px;
-    height: 80px;
-    border: 1px solid rgba(89, 18, 140, 0.5);
-    border-radius: 50%;
+    width: 64px;
+    height: 64px;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 5px;
-    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.5), rgba(89, 18, 140, 0.2));
 }
-
 
 .social-icon {
     margin: 0 10px;
-    max-width: 64px;
+    max-width: 48px;
 }
 
 .social-link {
+    position: relative;
     display: flex;
     justify-content: start;
     align-items: center;
     margin-bottom: 20px;
+    border-radius: 4rem;
+    background: radial-gradient(circle at center, transparent, rgba(89, 18, 140, 0.2));
 }
+
+.social-link-youtube:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    padding: 1px;
+    border-radius: 4rem;
+    background: linear-gradient(to right, #59128c, #e20606);
+    -webkit-mask: 
+       linear-gradient(#fff 0 0) content-box, 
+       linear-gradient(#fff 0 0);
+            mask: 
+       linear-gradient(#fff 0 0) content-box, 
+       linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+  }
+
+  .social-link-instagram:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    padding: 1px;
+    border-radius: 4rem;
+    background: linear-gradient(to right, #59128c, #f8a710);
+    -webkit-mask: 
+       linear-gradient(#fff 0 0) content-box, 
+       linear-gradient(#fff 0 0);
+            mask: 
+       linear-gradient(#fff 0 0) content-box, 
+       linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+  }
+
+  .social-link-twitter:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    padding: 1px;
+    border-radius: 4rem;
+    background: linear-gradient(to right, #59128c, #00b9ff);
+    -webkit-mask: 
+       linear-gradient(#fff 0 0) content-box, 
+       linear-gradient(#fff 0 0);
+            mask: 
+       linear-gradient(#fff 0 0) content-box, 
+       linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+  }
+
 
 .social-link-link {
     text-decoration: none;
@@ -71,10 +148,29 @@ body {
 .social-link-text {
     font-size: 2rem;
     margin-left: 10px;
+    font-weight: bold;
+    padding-right: 10px;
+}
+
+.text-youtube {
+    background: -webkit-linear-gradient(0deg, #59128c 0%, #e20606 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.text-instagram {
+    background: -webkit-linear-gradient(0deg, #59128c 0%, #f8a710 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.text-twitter {
     background: -webkit-linear-gradient(0deg, #59128c 0%, #00b9ff 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-weight: bold;
+    background-clip: text;
 }
 
 footer {
@@ -83,4 +179,13 @@ footer {
     right: 20px;
     color: white;
     font-size: 0.8rem;
+}
+
+@keyframes rotate-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
