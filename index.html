@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./CSS/main.css">
+    <link rel="stylesheet" href="./CSS/navbar.css">
+    <script src="./JS/navbar.js"></script>
     <title>Nipaanda - Home</title>
     <meta name="description" content="Personal website of Nipaanda | Colin Theimer. Check out my links!" >
     <meta name="robots" content="index,follow">
@@ -13,47 +15,47 @@
 
 <body>
     <div class="background-image"></div>
+
+    <div class="topnav" id="myTopnav">
+        <a href="index.html" class="active">Home</a>
+        <a href="favmusic.html">music i like</a>
+        <div class="dropdown">
+            <button class="dropbtn">links
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="https://www.youtube.com/@Nipaanda" target="_blank">
+                    <div class="social-wrapper">
+                        <img src="./Content/Icon_Youtube.png" alt="YouTube" class="social-icon">
+                        <span>YouTube</span>
+                    </div>
+                </a>
+                <a href="https://www.instagram.com/Nipaanda" target="_blank">
+                    <div class="social-wrapper">
+                        <img src="./Content/Icon_Instagram.png" alt="Instagram" class="social-icon">
+                        <span>Instagram</span>
+                    </div>
+                </a>
+                <a href="https://www.twitter.com/Nipaanda" target="_blank">
+                    <div class="social-wrapper">
+                        <img src="./Content/Icon_Twitter.png" alt="Twitter" class="social-icon">
+                        <span>Twitter</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <a href="javascript:void(0);" class="icon" onclick="ToggleNav()">&#9776;</a>
+    </div>
+
     <div class="main-body">
         <div class="profile-picture-wrapper">
             <div class="profile-ring"></div>
             <img src="./Content/Profile_Picture.jpg" alt="Profile Picture" class="profile-picture">
         </div>
 
-        <div class="social-links">
-
-            <a href="https://www.youtube.com/@nipaanda" target="_blank" class="social-link-link">
-                <div class="social-link social-link-youtube">
-                    <div class="social-icon-wrapper">
-                        <img src="./Content/Icon_Youtube.png" alt="YouTube" class="social-icon">
-                    </div>
-                    <span class="social-link-text text-youtube">
-                        @Nipaanda
-                    </span>
-                </div>
-            </a>
-
-            <a href="https://www.instagram.com/nipaanda" target="_blank" class="social-link-link">
-                <div class="social-link social-link-instagram">
-                    <div class="social-icon-wrapper">
-                        <img src="./Content/Icon_Instagram.png" alt="Instagram" class="social-icon">
-                    </div>
-                    <span class="social-link-text text-instagram">
-                        @Nipaanda
-                    </span>
-                </div>
-            </a>
-
-            <a href="https://www.twitter.com/nipaanda" target="_blank" class="social-link-link">
-                <div class="social-link  social-link-twitter">
-                    <div class="social-icon-wrapper">
-                        <img src="./Content/Icon_Twitter.png" alt="Twitter" class="social-icon">
-                    </div>
-                    <span class="social-link-text text-twitter">
-                        @Nipaanda
-                    </span>
-                </div>
-            </a>
-        </div>
+        <span style="font-size: 24px; color: white; text-align: center; line-height: 200%; background-color: rgba(0, 0, 0, 0.3); padding: 10px; border-radius: 20px; margin: 10px;">
+            For now, this is more of a test website. <br />You can find my links and some other stuff in the navigation. <br />🤗
+        </span>
 
         <footer>
             <div class="copyright">&copy; Colin Theimer</div>

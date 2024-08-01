@@ -5,12 +5,21 @@ body {
 }
 
 .main-body {
-    position: relative;
-    height: 100%;
+    position: absolute;
+    top: 70px;
+    height: calc(100% - 70px);
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    z-index: -1;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.justify-content-initial {
+    justify-content: initial;
 }
 
 .background-image {
@@ -31,7 +40,6 @@ body {
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    margin-top: 50px;
     margin-bottom: 50px;
     position: relative;
 }
@@ -57,129 +65,48 @@ body {
     animation: rotate-ring 10s linear infinite;
 }
 
-.social-links {
-    width: auto;
-}
-
-.social-icon-wrapper {
-    width: 64px;
-    height: 64px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-}
-
-.social-icon {
-    margin: 0 10px;
-    max-width: 48px;
-}
-
-.social-link {
-    position: relative;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    margin-bottom: 20px;
-    border-radius: 4rem;
-    background-color: #FAEDF6;
-}
-
-.social-link-youtube:before {
-    content: "";
-    position: absolute;
-    z-index: 1;
-    inset: 0;
-    padding: 2px;
-    border-radius: 4rem;
-    background: linear-gradient(to right, #59128c, #e20606);
-    -webkit-mask: 
-       linear-gradient(#fff 0 0) content-box, 
-       linear-gradient(#fff 0 0);
-            mask: 
-       linear-gradient(#fff 0 0) content-box, 
-       linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-            mask-composite: exclude;
-  }
-
-  .social-link-instagram:before {
-    content: "";
-    position: absolute;
-    z-index: 1;
-    inset: 0;
-    padding: 2px;
-    border-radius: 4rem;
-    background: linear-gradient(to right, #59128c, magenta);
-    -webkit-mask: 
-       linear-gradient(#fff 0 0) content-box, 
-       linear-gradient(#fff 0 0);
-            mask: 
-       linear-gradient(#fff 0 0) content-box, 
-       linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-            mask-composite: exclude;
-  }
-
-  .social-link-twitter:before {
-    content: "";
-    position: absolute;
-    z-index: 1;
-    inset: 0;
-    padding: 2px;
-    border-radius: 4rem;
-    background: linear-gradient(to right, #59128c, #00b9ff);
-    -webkit-mask: 
-       linear-gradient(#fff 0 0) content-box, 
-       linear-gradient(#fff 0 0);
-            mask: 
-       linear-gradient(#fff 0 0) content-box, 
-       linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-            mask-composite: exclude;
-  }
-
-
-.social-link-link {
-    text-decoration: none;
-    filter: drop-shadow(0px 5px 5px #59128c);
-}
-
-.social-link-text {
-    font-size: 2rem;
-    margin-left: 10px;
-    margin-right: 10px;
-    font-weight: bold;
-    padding-right: 10px;
-}
-
-.text-youtube {
-    background: -webkit-linear-gradient(0deg, #59128c 0%, #e20606 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.text-instagram {
-    background: -webkit-linear-gradient(0deg, #59128c 0%, magenta 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.text-twitter {
-    background: -webkit-linear-gradient(0deg, #59128c 0%, #00b9ff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
 footer {
     position: fixed;
     bottom: 20px;
     right: 20px;
     color: white;
     font-size: 0.8rem;
+}
+
+.song-container {
+    background-color: rgba(89, 18, 140, 0.4);
+    border-radius: 20px;
+    width: 400px;
+    margin-bottom: 20px;
+}
+
+.song-header {
+background-color: rgba(89, 18, 140, 0.2);
+padding: 10px;
+text-align: center;
+margin-bottom: 20px;
+border-radius: 20px 20px 0 0;
+font-weight: bold;
+color: white;
+font-size: 1.5rem;
+}
+
+.song-ol {
+    list-style: decimal;
+    padding-left: 40px;
+    margin: 0;
+}
+
+.song-li {
+    margin: 10px 0;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.song-a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
 }
 
 @keyframes rotate-ring {
