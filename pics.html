@@ -9,41 +9,6 @@
     <script src="./JS/navbar.js"></script>
     <title>Nipaanda - Pics</title>
     <link rel="icon" type="image/x-icon" href="./favicon.ico">
-
-    <style>
-        .round-full {
-            border-radius: 20px;
-            object-fit: fill;
-            width: 700px;
-            max-width: 100%;
-            max-height: 100%;
-            border: 1px solid rgba(0, 0, 0, 0.4);
-        }
-
-        .round-top {
-            border-radius: 20px 20px 0 0;
-            object-fit: fill;
-            width: 700px;
-            max-width: 100%;
-            max-height: 100%;
-            border: 1px solid rgba(0, 0, 0, 0.4);
-        }
-
-        .round-bottom {
-            border-radius: 0 0 20px 20px;
-            border: 1px solid rgba(0, 0, 0, 0.4);
-            background-color: rgba(255, 255, 255, 0.6);
-            text-align: center;
-            padding: 10px;
-            margin-top: -5px;
-        }
-
-        .image-container {
-            margin: 20px 20px 0 20px;
-            text-decoration: none;
-            color: black;
-        }
-    </style>
 </head>
 
 <body>
@@ -52,7 +17,19 @@
     <div class="topnav" id="myTopnav">
         <a href="index.html">Home</a>
         <a href="favmusic.html">music i like</a>
-        <a href="pics.html">pics for penpals</a>
+        <div class="dropdown">
+            <button class="dropbtn">pics for penpals
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="pics.html">
+                    <span>hill behind a lake</span>
+                </a>
+                <a href="pics2.html">
+                    <span>on top a smaller mountain</span>
+                </a>
+            </div>
+        </div>
         <div class="dropdown">
             <button class="dropbtn">links
                 <i class="fa fa-caret-down"></i>
@@ -85,7 +62,7 @@
 
         <a class="image-container" href="./Content/240804/20240804_072422.jpg" target="_blank">
             <img class="round-top" src="./Content/240804/20240804_072422.jpg" />
-            <div class="round-bottom">The 'Iller'. A river that flows through the Allgäu region. <br />Usually it's a
+            <div class="round-bottom">The 'Iller'. A river that flows through the Allgäu region. <br />Normally it's a
                 lot clearer though.</div>
         </a>
 
@@ -110,8 +87,7 @@
 
         <a class="image-container" href="./Content/240804/20240804_075002.jpg" target="_blank">
             <img class="round-top" src="./Content/240804/20240804_075002.jpg" />
-            <div class="round-bottom">View of my city with the alps in the back. <br />Usually the mountains are a lot
-                clearer, <br />but the clouds and bad weather the night before create this kind of mist.</div>
+            <div class="round-bottom">View of my city with the alps in the back.</div>
         </a>
 
         <a class="image-container" href="./Content/240804/20240804_075011.jpg" target="_blank">
