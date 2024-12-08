@@ -155,3 +155,154 @@ footer {
         transform: rotate(360deg);
     }
 }
+
+.text-wrapper {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+}
+
+.text-content {
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    line-height: 200%;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 20px;
+    z-index: 1;
+    position: relative;
+}
+
+.rotating-ring {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: calc(100% + 10px);
+    height: calc(100% + 10px);
+    border-radius: 30px; /* Adjust to align with text content */
+    background: linear-gradient(magenta, cyan);
+    animation: rotate-ring 10s linear infinite;
+    z-index: 0;
+}
+
+@keyframes rotate-ring {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+/* Wrapper for the rotating outline */
+.rotating-outline-wrapper {
+    position: relative;
+    width: 400px;
+    height: 200px;
+    border-radius: 10px;
+    background: black;
+    overflow: hidden; /* Ensures nothing inside the wrapper leaks out */
+}
+
+/* Content box (black background) */
+.content-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background: black;
+    z-index: 1; /* Keeps it above the rotating ring */
+}
+
+/* Rotating outline effect */
+.rotating-outline-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -3px; /* Moves the outline outward */
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border-radius: 12px; /* Slightly larger than the content box for alignment */
+    background: linear-gradient(90deg, cyan, magenta);
+    z-index: 0; /* Behind the content */
+    animation: rotate-gradient 5s linear infinite;
+}
+
+/* Keyframes for rotating the gradient */
+@keyframes rotate-gradient {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotate-gradient2 {
+    0% {
+        --rotate: 0deg;
+    }
+    100% {
+        --rotate: 360deg;
+    }
+}
+
+
+@property --rotate {
+    syntax: "<angle>";
+    initial-value: 90deg;
+    inherits: false;
+  }
+  
+  :root {
+    --card-height: 200px;
+    --card-width: 400px;
+  }
+
+  .card {
+    background: #1a2f3f;
+    width: var(--card-width);
+    height: var(--card-height);
+    position: relative;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    color: rgb(88 199 250 / 0%);
+  }
+  
+  .card::before {
+    content: "";
+    width: 102%;
+    height: 104%;
+    border-radius: 10px;
+    background-image: linear-gradient(
+      var(--rotate)
+      , cyan, magenta);
+      position: absolute;
+      z-index: -1;
+      top: -2%;
+      left: -1%;
+      animation: rotate-gradient2 10s linear infinite;
+  }
+  
+  .card::after {
+    position: absolute;
+    content: "";
+    top: calc(var(--card-height) / 6);
+    left: 0;
+    right: 0;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    transform: scale(0.8);
+    filter: blur(calc(var(--card-height) / 6));
+    background-image: linear-gradient(
+      var(--rotate)
+      , cyan, magenta);
+      opacity: 1;
+    transition: opacity .5s;
+    animation: rotate-gradient2 10s linear infinite;
+  }
