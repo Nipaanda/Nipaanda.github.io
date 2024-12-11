@@ -262,7 +262,7 @@ footer {
   }
 
   .card {
-    background: #1a2f3f;
+    background: linear-gradient(45deg, #251341, transparent);
     width: var(--card-width);
     height: var(--card-height);
     position: relative;
