@@ -1,3 +1,8 @@
+:root {
+    --color1: #2b5477;
+    --color2: #243647;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -25,15 +30,14 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 120%;
-    height: 120%;
+    width: 100%;
+    height: 100%;
     background-image: url('../Content/Background_Picture.jpg');
     background-size: cover;
     background-position: center;
     filter: blur(5px);
     transform: scale(1.1);
     z-index: -1;
-    transition: background-position 0.1s ease-in-out;
 }
 
 .profile-picture-wrapper {
@@ -59,8 +63,8 @@ body {
     width: calc(100% + 10px);
     height: calc(100% + 10px);
     border-radius: 50%;
-    background: linear-gradient(magenta,
-            cyan);
+    background: linear-gradient(var(--color1),
+    var(--color2));
     animation: rotate-ring 10s linear infinite;
 }
 
@@ -183,7 +187,7 @@ footer {
     width: calc(100% + 10px);
     height: calc(100% + 10px);
     border-radius: 30px; /* Adjust to align with text content */
-    background: linear-gradient(magenta, cyan);
+    background: linear-gradient(var(--color1), var(--color2));
     animation: rotate-ring 10s linear infinite;
     z-index: 0;
 }
@@ -225,7 +229,7 @@ footer {
     right: -3px;
     bottom: -3px;
     border-radius: 12px; /* Slightly larger than the content box for alignment */
-    background: linear-gradient(90deg, cyan, magenta);
+    background: linear-gradient(90deg, var(--color2), var(--color1));
     z-index: 0; /* Behind the content */
     animation: rotate-gradient 5s linear infinite;
 }
@@ -262,7 +266,7 @@ footer {
   }
 
   .card {
-    background: linear-gradient(45deg, #251341, transparent);
+    background: linear-gradient(45deg, #486b97, transparent);
     width: var(--card-width);
     height: var(--card-height);
     position: relative;
@@ -281,7 +285,7 @@ footer {
     border-radius: 10px;
     background-image: linear-gradient(
       var(--rotate)
-      , cyan, magenta);
+      , var(--color2), var(--color1));
       position: absolute;
       z-index: -1;
       top: -2%;
@@ -303,7 +307,7 @@ footer {
     filter: blur(calc(var(--card-height) / 6));
     background-image: linear-gradient(
       var(--rotate)
-      , cyan, magenta);
+      , var(--color2), var(--color1));
       opacity: 1;
     transition: opacity .5s;
     animation: rotate-gradient2 10s linear infinite;
