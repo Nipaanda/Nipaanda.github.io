@@ -33,6 +33,7 @@ body {
     filter: blur(5px);
     transform: scale(1.1);
     z-index: -1;
+    transition: background-position 0.1s ease-in-out;
 }
 
 .profile-picture-wrapper {
@@ -77,6 +78,7 @@ footer {
     width: 400px;
     margin-top: 10px;
     margin-bottom: 10px;
+    backdrop-filter: blur(10px);
 }
 
 .song-header {
