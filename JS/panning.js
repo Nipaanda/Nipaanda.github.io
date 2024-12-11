@@ -1,14 +1,24 @@
-if (window.DeviceOrientationEvent) {
-    window.addEventListener('deviceorientation', (event) => {
-      const gamma = event.gamma;
-      const beta = event.beta; 
+const background = document.querySelector('.background-image');
 
-      const positionX = 100 - Math.min(Math.max((gamma + 90) / 180, 0), 1) * 100;
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener('deviceorientation', (event) => {
+        const gamma = event.gamma; // Left-right tilt (-90 to 90)
+        const beta = event.beta;  // Front-back tilt (0 to 180)
 
-      const positionY = 100 - Math.min(Math.max((beta - 45) / 90, 0), 1) * 100;
+        // Reverse horizontal (X-axis) panning
+        const positionX = 100 - Math.min(Math.max((gamma + 90) / 180, 0), 1) * 100;
 
-      document.querySelector('.background-image').style.backgroundPosition = `${positionX}% ${positionY}%`;
+        // Reverse vertical (Y-axis) panning
+        const positionY = 100 - Math.min(Math.max((beta - 45) / 90, 0), 1) * 100;
+
+        // Update background position
+        background.style.backgroundPosition = `${positionX}% ${positionY}%`;
+      });
+    } else {
+      console.warn('DeviceOrientationEvent is not supported on this device.');
+    }
+
+    // Ensure background is centered by default on desktop
+    window.addEventListener('resize', () => {
+      background.style.backgroundPosition = 'center';
     });
-  } else {
-    console.warn('DeviceOrientationEvent is not supported on this device.');
-  }
