@@ -319,3 +319,11 @@ footer {
     transition: opacity .5s;
     animation: rotate-gradient2 10s linear infinite;
   }
+
+  .hint-card {
+    margin: 10px;
+    color: white;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 10px;
+  }
