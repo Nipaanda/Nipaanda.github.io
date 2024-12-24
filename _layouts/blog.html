@@ -68,12 +68,32 @@
         <a href="javascript:void(0);" class="icon" onclick="ToggleNav()">&#9776;</a>
     </div>
 
-    <main>🚧 under construction 🚧
+    <main class="main-body">
         <ul>
-            {% for post in site.blog %}
-                <li>
-                    <a href="{{ post.url }}">{{ post.title }}</a> - {{ post.date | date: "%B %d, %Y" }}
-                </li>
+            {% for post in site.blog reversed %}
+                <div class="card-blog">
+                    <a href="{{ post.url }}">
+                      <div class="card-blog-image">
+                        <img src="{{ post.thumbnail }}" alt="Thumbnail" />
+                      </div>
+                  
+                      <div class="card-blog-body">
+                  
+                        <div class="card-blog-date">
+                          <time>{{ post.date | date: "%B %d, %Y" }}</time>
+                        </div>
+                  
+                        <div class="card-blog-title">
+                          <h3>{{ post.title }}</h3>
+                        </div>
+                  
+                        <div class="card-blog-excerpt">
+                          <p>{{ post.info }}</p>
+                        </div>
+                  
+                      </div>
+                    </a>
+                  </div>
             {% endfor %}
 
         </ul>
