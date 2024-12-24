@@ -333,6 +333,7 @@ footer {
     padding: 25px;
     border-radius: 25px;
     width: fit-content;
+    max-width: 100%;
 }
 
 .main-page {
