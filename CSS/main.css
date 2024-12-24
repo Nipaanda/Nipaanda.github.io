@@ -339,6 +339,7 @@ footer {
     margin: 25px;
     overflow-y: scroll;
     scrollbar-width: none;
+    max-width: 100%;
 }
 
 
