@@ -1,0 +1,19 @@
+# _config.yml in the root
+title: "Nipaanda"
+description: "i don't know what to put here"
+baseurl: ""
+markdown: kramdown
+
+collections:
+  blog:
+    output: true
+    title: "life stuff"
+    description: "hello"
+  reviews:
+    output: true
+    title: "opinions no one asked for"
+    description: "hello"
+
+# General permalink settings (optional)
+permalink: /:categories/:year/:month/:day/:title/
+

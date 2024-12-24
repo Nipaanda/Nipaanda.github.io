@@ -1,0 +1,341 @@
+:root {
+    --color1: #2b5477;
+    --color2: #243647;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.main-body {
+    position: absolute;
+    top: 50px;
+    height: calc(100% - 50px);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    z-index: -1;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.justify-content-initial {
+    justify-content: initial;
+}
+
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../Content/Background_Picture.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(5px);
+    transform: scale(1.1);
+    z-index: -1;
+}
+
+.profile-picture-wrapper {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-bottom: 50px;
+    position: relative;
+    top: 20px;
+    z-index: 2;
+}
+
+.profile-picture {
+    max-width: 100%;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+    bottom: -4px
+}
+
+.profile-ring {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    border-radius: 50%;
+    background: linear-gradient(var(--color1), var(--color2));
+    animation: rotate-ring 10s linear infinite;
+    z-index: 1;
+
+    mask: radial-gradient(circle, rgba(0, 0, 0, 0.4) 65%, black 67%);
+    -webkit-mask: radial-gradient(circle, rgba(0, 0, 0, 0.4) 65%, black 67%);
+}
+
+
+
+footer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    color: white;
+    font-size: 0.8rem;
+}
+
+.song-container {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+    width: 400px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.song-header {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+    border-radius: 20px 20px 0 0;
+    font-weight: bold;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.song-ol {
+    list-style: decimal;
+    padding-left: 40px;
+    margin: 0;
+}
+
+.song-li {
+    margin: 10px 0;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.song-a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.hl-divider {
+    width: 300px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.round-full {
+    border-radius: 20px;
+    object-fit: fill;
+    width: 700px;
+    max-width: 100%;
+    max-height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.round-top {
+    border-radius: 20px 20px 0 0;
+    object-fit: fill;
+    width: 700px;
+    max-width: 100%;
+    max-height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.round-bottom {
+    border-radius: 0 0 20px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    background-color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    padding: 10px;
+    margin-top: -5px;
+}
+
+.image-container {
+    margin: 20px 20px 0 20px;
+    text-decoration: none;
+    color: black;
+}
+
+@keyframes rotate-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.text-wrapper {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+}
+
+.text-content {
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    line-height: 200%;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 20px;
+    z-index: 1;
+    position: relative;
+}
+
+.rotating-ring {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: calc(100% + 10px);
+    height: calc(100% + 10px);
+    border-radius: 30px; /* Adjust to align with text content */
+    background: linear-gradient(var(--color1), var(--color2));
+    animation: rotate-ring 10s linear infinite;
+    z-index: 0;
+}
+
+@keyframes rotate-ring {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+/* Wrapper for the rotating outline */
+.rotating-outline-wrapper {
+    position: relative;
+    width: 400px;
+    height: 200px;
+    border-radius: 10px;
+    background: black;
+    overflow: hidden; /* Ensures nothing inside the wrapper leaks out */
+}
+
+/* Content box (black background) */
+.content-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background: black;
+    z-index: 1; /* Keeps it above the rotating ring */
+}
+
+/* Rotating outline effect */
+.rotating-outline-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -3px; /* Moves the outline outward */
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border-radius: 12px; /* Slightly larger than the content box for alignment */
+    background: linear-gradient(90deg, var(--color2), var(--color1));
+    z-index: 0; /* Behind the content */
+    animation: rotate-gradient 5s linear infinite;
+}
+
+/* Keyframes for rotating the gradient */
+@keyframes rotate-gradient {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotate-gradient2 {
+    0% {
+        --rotate: 0deg;
+    }
+    100% {
+        --rotate: 360deg;
+    }
+}
+
+
+@property --rotate {
+    syntax: "<angle>";
+    initial-value: 90deg;
+    inherits: false;
+  }
+  
+  :root {
+    --card-height: 200px;
+    --card-width: 400px;
+  }
+
+  .card {
+    background: linear-gradient(45deg, #486b97, transparent);
+    width: var(--card-width);
+    height: var(--card-height);
+    position: relative;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    color: rgb(88 199 250 / 0%);
+  }
+  
+  .card::before {
+    content: "";
+    width: 102%;
+    height: 104%;
+    border-radius: 10px;
+    background-image: linear-gradient(
+      var(--rotate)
+      , var(--color2), var(--color1));
+      position: absolute;
+      z-index: -1;
+      top: -2%;
+      left: -1%;
+      animation: rotate-gradient2 10s linear infinite;
+  }
+  
+  .card::after {
+    position: absolute;
+    content: "";
+    top: calc(var(--card-height) / 6);
+    left: 0;
+    right: 0;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    transform: scale(0.8);
+    filter: blur(calc(var(--card-height) / 6));
+    background-image: linear-gradient(
+      var(--rotate)
+      , var(--color2), var(--color1));
+      opacity: 1;
+    transition: opacity .5s;
+    animation: rotate-gradient2 10s linear infinite;
+  }
+
+  .hint-card {
+    margin: 10px;
+    color: white;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  article {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 25px;
+    border-radius: 25px;
+}
+
+.main-page {
+    margin: 25px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
