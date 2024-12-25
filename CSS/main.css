@@ -334,6 +334,7 @@ footer {
     border-radius: 25px;
     width: fit-content;
     max-width: 100%;
+    margin: 25px;
 }
 
 .main-page {
@@ -392,4 +393,8 @@ footer {
 
 .card-blog-date, .card-blog-excerpt {
   color: #777;
+}
+
+ul {
+    margin-top: 25px;
 }
