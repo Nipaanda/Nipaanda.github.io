@@ -5,7 +5,7 @@ date: 2024-12-05
 thumbnail: https://i.imgur.com/per58Hr.png
 info: a local custom
 ---
-<img src="https://i.imgur.com/ukAlHm6.jpeg" style="max-width: 400px;" />
+<img src="https://i.imgur.com/ukAlHm6.jpeg" style="max-width: 100%;" />
 There is this very interesting tradition in my city as well the surrounding villages. 
 <br>
 <br>
