@@ -7,8 +7,6 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    max-width: 100%;
-    overflow-x: hidden;
 }
 
 .main-body {
@@ -336,7 +334,8 @@ footer {
     border-radius: 25px;
     width: fit-content;
     max-width: 100%;
-    margin: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .main-page {
