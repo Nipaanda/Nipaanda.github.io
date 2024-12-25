@@ -1,4 +1,4 @@
-:root {
+:root {    
     --color1: #2b5477;
     --color2: #243647;
 }
@@ -336,6 +336,8 @@ footer {
     max-width: 100%;
     margin-top: 25px;
     margin-bottom: 25px;
+    text-align: justify;
+    text-justify: inter-word;
 }
 
 .main-page {
