@@ -2,7 +2,7 @@
 layout: post
 title: Stuttering
 date: 2024-12-27
-thumbnail: https://i.imgur.com/a7EgHFu.png
+thumbnail: https://i.imgur.com/u7hJbES.png
 info: and my experience living with it
 ---
 Stuttering has been a part of me ever since I knew how to talk. I would argue that short of my parents, nothing had a bigger impact on me growing up and becoming the person that I am today. It's kinda hard to talk about, so I thought that I should put some of my thoughts into writing. 
