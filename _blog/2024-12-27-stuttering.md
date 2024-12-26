@@ -28,4 +28,4 @@ However, I'm working on improving my situation! Although it feels like little ba
 In 2022 I also stumbled into a situation which allowed me to learn a technique that significantly improves my speech. It needs a lot of practice to be viable, but gave me lots of hope that years of speech therapy never did. <br>
 The idea behind it is to talk with a rhythm. Since talking and singing don't happen in the exact same brain areas, stutterers can usually sing fluently. So by talking in a rhythm you're trying to trick your brain into thinking you're singing. As of now I can only do it sometimes and in a fairly monotonous manner, but when it works it's great! <br>
 <br>
-Thank you for reading my ramblings! I hope this helps in understanding why I am the way I am. 😶‍🌫️
+Thank you for reading my ramblings! I hope this helps in understanding why I am the way I am.
