@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Stuttering
-date: 2024-12-27
+date: 2024-12-26
 thumbnail: https://i.imgur.com/u7hJbES.png
 info: and my experience living with it
 ---
