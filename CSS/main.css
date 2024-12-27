@@ -333,7 +333,7 @@ footer {
     padding: 25px;
     border-radius: 25px;
     width: fit-content;
-    max-width: max(98%, 600px);
+    max-width: min(98%, 600px);
     margin-top: 25px;
     margin-bottom: 25px;
     text-align: justify;
