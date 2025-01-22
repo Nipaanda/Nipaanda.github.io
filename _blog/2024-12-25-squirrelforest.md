@@ -8,7 +8,7 @@ info: but no squirrels
 It's Christmas day! My family and I went to a nearby forest. Colloquially it's called "squirrel forest", but since it's winter they are all sleeping for most of the day. 
 <br>
 <br>
-Nevertheless, the sun shining through the trees made for a beautiful screnery. 
+Nevertheless, the sun shining through the trees made for a beautiful scenery. 
 <br>
 <br>
 <small>_Clicking on the images opens the album with high resolution pictures._ 😁</small>
