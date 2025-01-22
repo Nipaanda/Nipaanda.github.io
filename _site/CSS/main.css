@@ -1,4 +1,4 @@
-:root {
+:root {    
     --color1: #2b5477;
     --color2: #243647;
 }
@@ -333,8 +333,11 @@ footer {
     padding: 25px;
     border-radius: 25px;
     width: fit-content;
-    max-width: 100%;
-    margin: 25px;
+    max-width: min(98%, 600px);
+    margin-top: 25px;
+    margin-bottom: 25px;
+    text-align: justify;
+    text-justify: inter-word;
 }
 
 .main-page {
@@ -363,18 +366,11 @@ footer {
 
 .card-blog-image {
 
-  height: 250px;
-  
-  position:relative;
-  overflow:hidden;
+  height: 300px;
   
   img {
     width: 100%;
-    
-    position:absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    height: 100%;
   }
  
 }
@@ -397,4 +393,25 @@ footer {
 
 ul {
     margin-top: 25px;
+}
+
+@media (orientation: landscape) {
+	ul {
+		display: grid;
+  		grid-template-columns: 1fr 1fr;
+  		gap: 25px;
+	}
+}
+
+blockquote {
+  border-left: 10px solid #ccc;
+  padding: 0.5em 10px;
+  padding-right: 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+blockquote p {
+  display: inline;
+  font-style: italic;
 }

@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../CSS/main.css">
-    <link rel="stylesheet" href="../CSS/navbar.css">
-    <link rel="stylesheet" href="../CSS/particles.css">
-    <script src="../JS/navbar.js"></script>
-    <script src="../JS/particles.js"></script>
-    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="/CSS/main.css">
+    <link rel="stylesheet" href="/CSS/navbar.css">
+    <link rel="stylesheet" href="/CSS/particles.css">
+    <script src="/JS/navbar.js"></script>
+    <script src="/JS/particles.js"></script>
+    <title>Squirrel forest</title>
     <meta name="description" content="Personal website of Nipaanda | Colin Theimer. Feel free to look around.">
-    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
 
 <body>
@@ -29,25 +29,25 @@
             <div class="dropdown-content">
                 <a href="https://www.youtube.com/@Nipaanda" target="_blank">
                     <div class="social-wrapper">
-                        <img src="../Content/Icon_Youtube.png" alt="YouTube" class="social-icon">
+                        <img src="/Content/Icon_Youtube.png" alt="YouTube" class="social-icon">
                         <span>YouTube - Main</span>
                     </div>
                 </a>
                 <a href="https://www.youtube.com/@Nipoondo" target="_blank">
                     <div class="social-wrapper">
-                        <img src="../Content/Icon_Youtube.png" alt="YouTube" class="social-icon">
+                        <img src="/Content/Icon_Youtube.png" alt="YouTube" class="social-icon">
                         <span>YouTube - Secondary</span>
                     </div>
                 </a>
                 <a href="https://pixelfed.social/Nipaanda" target="_blank">
                     <div class="social-wrapper">
-                        <img src="../Content/Icon_Pixelfed.png" alt="Pixelfed" class="social-icon">
+                        <img src="/Content/Icon_Pixelfed.png" alt="Pixelfed" class="social-icon">
                         <span>Pixelfed</span>
                     </div>
                 </a>
                 <a href="https://bsky.app/profile/nipaanda.bsky.social" target="_blank">
                     <div class="social-wrapper">
-                        <img src="../Content/Icon_Bluesky.png" alt="Bluesky" class="social-icon">
+                        <img src="/Content/Icon_Bluesky.png" alt="Bluesky" class="social-icon">
                         <span>Bluesky</span>
                     </div>
                 </a>
@@ -57,34 +57,24 @@
     </div>
 
     <main class="main-body">
-        <ul>
-            {% for post in site.reviews reversed %}
-                <div class="card-blog">
-                    <a href="{{ post.url }}">
-                      <div class="card-blog-image">
-                        <img src="{{ post.thumbnail }}" alt="Thumbnail" />
-                      </div>
-                  
-                      <div class="card-blog-body">
-                  
-                        <div class="card-blog-date">
-                          <time>{{ post.date | date: "%B %d, %Y" }}</time>
-                        </div>
-                  
-                        <div class="card-blog-title">
-                          <h3>{{ post.title }}</h3>
-                        </div>
-                  
-                        <div class="card-blog-excerpt">
-                          <p>{{ post.info }}</p>
-                        </div>
-                  
-                      </div>
-                    </a>
-                  </div>
-            {% endfor %}
+        <article>
+            <h2>Squirrel forest</h2>
+            <p style="margin-bottom: 10px;"><small>Posted on December 25, 2024</small></p>
+            <div class="post-content">
+              <p>It’s Christmas day! My family and I went to a nearby forest. Colloquially it’s called “squirrel forest”, but since it’s winter they are all sleeping for most of the day. 
+<br />
+<br />
+Nevertheless, the sun shining through the trees made for a beautiful screnery. 
+<br />
+<br />
+<small><em>Clicking on the images opens the album with high resolution pictures.</em> 😁</small></p>
 
-        </ul>
+<blockquote class="imgur-embed-pub" lang="en" data-id="a/A7nwz6i"><a href="//imgur.com/a/A7nwz6i">squirrel forest</a></blockquote>
+<script async="" src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+
+
+            </div>
+          </article>
     </main>
 </body>
 
