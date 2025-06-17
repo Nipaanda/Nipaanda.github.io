@@ -11,8 +11,8 @@ Since this was the first time I was confident enough to bring my camera out, the
 For one I brought the wrong lens, so I couldn't really take scenic pictures that weren't zoomed in. So those ones I still had to take with my phone. <br>
 And then I also forgot to up the maximum ISO, which is why a lot of pictures came out too dark. However, that I could partly remedy with editing! <br>
 <br>
-A selection of images is embedded below, but if you like ducks \*_cough cough_\*, you might wanna <a href="https://imgur.com/a/lC7gV0W">check out these</a> as well. 🦆 <br>
-**Data warning though - many high res images**<br>
+A selection of images is embedded below, but if you like ducks \*_cough cough_\*, you might wanna <a href="https://imgur.com/a/lC7gV0W" target="_blank">check out these</a> as well. 🦆 <br>
+⚠️ **Data warning though - many high res images** ⚠️<br>
 <br>
 <small> _Clicking on the images opens the album with high resolution pictures._ 😁</small>
 
