@@ -10,6 +10,8 @@ My mother's birthday! My family and I went to the squirrel forest again. This ti
 <br>
 <small>Annoying little kids were chasing them around. 😤</small>
 <br>
+<small>_And I just cannot figure out ISO. Either it's too dark or too grainy. 😭_</small>
+<br>
 <br>
 <small>_Clicking on the images opens the album with high resolution pictures._ 😁</small>
 
