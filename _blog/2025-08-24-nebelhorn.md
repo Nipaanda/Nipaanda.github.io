@@ -3,7 +3,7 @@ layout: post
 title: "Nebelhorn"
 date: 2025-08-24
 thumbnail: https://i.imgur.com/0RKIMWD.jpeg 
-info: but squirrels
+info: mountain man strikes again
 ---
 Another mountain, but this time one that is actually really tall 
 <br>
