@@ -2,7 +2,7 @@
 layout: post
 title: "Squirrel forest"
 date: 2024-12-25
-thumbnail: https://i.imgur.com/LaLX08r.jpeg 
+thumbnail: https://i.imgur.com/LaLX08rl.jpeg 
 info: but no squirrels
 ---
 It's Christmas day! My family and I went to a nearby forest. Colloquially it's called "squirrel forest", but since it's winter they are all sleeping for most of the day. 
