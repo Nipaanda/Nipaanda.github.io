@@ -2,7 +2,7 @@
 layout: post
 title: "Squirrel forest #2"
 date: 2025-08-12
-thumbnail: https://i.imgur.com/4OH7c47.jpeg 
+thumbnail: https://i.imgur.com/4OH7c47l.jpeg 
 info: but squirrels
 ---
 My mother's birthday! My family and I went to the squirrel forest again. This time we actually saw a couple! 
