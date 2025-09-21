@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nipaanda - Debt</title>
+    <meta name="description" content="Personal website of Nipaanda. Feel free to look around! o7">
+    <meta name="robots" content="index,follow">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <style>
+        :root {
+            --spin-speed: 72s;
+            --gap: 10deg;
+            --blue: #0b63d9;
+            --yellow: #ffd233;
+            --wheel-scale: 220vmax;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Comic Sans MS' !important;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #031022;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            color: #111;
+            overflow: hidden;
+        }
+
+        .wheel-bg {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            width: var(--wheel-scale);
+            height: var(--wheel-scale);
+            transform: translate(-50%, -50%) rotate(0deg);
+            z-index: 0;
+            pointer-events: none;
+            background: repeating-conic-gradient( from 0deg at 50% 50%, var(--blue) 0 calc(var(--gap)), var(--yellow) calc(var(--gap)) calc(calc(var(--gap) * 2)) );
+            will-change: transform;
+            transform-origin: 50% 50%;
+            animation: spin linear infinite;
+            animation-duration: var(--spin-speed);
+            box-shadow: inset 0 0 180px rgba(0,0,0,0.25);
+        }
+
+        .big-text {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 7vw;
+            font-weight: 900;
+            white-space: nowrap;
+        }
+
+        .rainbow-text {
+            background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes spin {
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        .center-spot {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            width: 100%;
+            height: 20%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+            text-align: center;
+            background: radial-gradient( circle at 50% 50%, rgb(11, 24, 217) 35%, transparent 80% );
+        }
+
+            .center-spot .message {
+                padding: 1.2rem;
+                max-width: 85%;
+                font-weight: 800;
+                color: #ffd233;
+                font-size: 3rem;
+                line-height: 1;
+                user-select: text;
+                text-shadow: 0 5px 0 black;
+                white-space: nowrap;
+            }
+
+        @media (max-width:420px) {
+            : root {
+                --gap: 12deg;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wheel-bg" aria-hidden="true"></div>
+
+    <span class="big-text rainbow-text">Current amount owed:</span>
+
+    <div class="center-spot" role="region">
+        <div class="message">119.000 €</div>
+    </div>
+</body>
+</html>
