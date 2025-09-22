@@ -26,7 +26,6 @@
         body {
             min-height: 100vh;
             background: #031022;
-            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
             color: #111;
             overflow: hidden;
         }
@@ -104,16 +103,222 @@
                 --gap: 12deg;
             }
         }
+
+
+
+
+
+
+        :root {
+            --panel-width: min(720px, 88vw);
+            --anim-duration: 520ms;
+            --easing: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        /* Wrap the site content in #page so we can apply a filter to it */
+        #page {
+            min-height: 100vh;
+            min-width: 100vw;
+            transition: filter 1360ms var(--easing), opacity 1360ms var(--easing);
+        }
+            /* when active, everything in #page becomes black & white */
+            #page.bw {
+                filter: grayscale(100%);
+            }
+
+        /* Overlay covers the viewport and holds backdrop + panel */
+        #overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            pointer-events: none; /* enabled only when open */
+        }
+
+            #overlay.open {
+                pointer-events: auto;
+            }
+
+            /* subtle dark backdrop when open */
+            #overlay .backdrop {
+                position: absolute;
+                inset: 0;
+                background: transparent;
+                transition: background 1360ms var(--easing);
+                will-change: background;
+            }
+
+            #overlay.open .backdrop {
+                background: rgba(0,0,0,0.25);
+                pointer-events: auto; /* allow clicks */
+            }
+
+        /* panel that swoops in from the right and is vertically centered */
+        .panel {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            width: var(--panel-width);
+            max-height: 86vh;
+            overflow: auto;
+            padding: 10px;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 0 20px 50px rgba(2,6,23,0.45);
+            z-index: 1010;
+            /* animate horizontal movement using CSS variable --tx */
+            --tx: 150%;
+            transform: translateX(var(--tx)) translateY(-50%);
+            transition: transform var(--anim-duration) var(--easing), opacity 240ms var(--easing);
+            opacity: 0;
+            will-change: transform, opacity;
+            pointer-events: auto;
+        }
+        /* open state -> centered */
+        #overlay.open .panel {
+            --tx: -50%;
+            opacity: 1;
+        }
+
+        /* table style inside the panel */
+        .swoop-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 14px;
+        }
+
+            .swoop-table thead th {
+                padding: 8px 6px;
+                border-bottom: 2px solid #eee;
+                font-weight: 600;
+            }
+
+            .swoop-table tbody td {
+                padding: 8px;
+                border-bottom: 1px solid #f2f2f2;
+            }
+
+            .swoop-table tbody tr:last-child td {
+                border-bottom: none;
+            }
+
+        /* small screen adjustments */
+        @media (max-width:520px) {
+            .panel {
+                padding: 8px;
+                border-radius: 10px;
+                width: 92vw;
+            }
+
+            .swoop-table thead th, .swoop-table td {
+                font-size: 13px;
+                padding: 3px;
+            }
+        }
+
+        .money-line {
+            white-space: nowrap;
+        }
+
+        .add {
+            color: red;
+        }
+
+        .subtract {
+            color: green;
+        }
     </style>
 </head>
 
 <body>
-    <div class="wheel-bg" aria-hidden="true"></div>
+    <div id="page">
+        <div class="wheel-bg" aria-hidden="true"></div>
 
-    <span class="big-text rainbow-text">Current amount owed:</span>
+        <span class="big-text rainbow-text">Current amount owed:</span>
 
-    <div class="center-spot" role="region">
-        <div class="message">111.900 Euro</div>
+        <div class="center-spot" role="region">
+            <div class="message">111.900 Euro</div>
+        </div>
     </div>
+
+    <div id="overlay" aria-hidden="true">
+        <div class="backdrop" aria-hidden="true"></div>
+
+        <div class="panel" role="dialog" aria-modal="true" aria-label="Swooping Table">
+            <table class="swoop-table" role="table">
+                <caption style="caption-side: top; font-weight: bold;">History of the Nugget Goddess&#39;s debt</caption>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Reason</th>
+                        <th>Amount</th>
+                        <th>New Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>08.06.2025</td>
+                        <td>Destruction of ice cream parlor</td>
+                        <td class="money-line add">+112.098,35 &euro;</td>
+                        <td class="money-line">112.098,35 &euro;</td>
+                    </tr>
+                    <tr>
+                        <td>25.07.2025</td>
+                        <td>MORNIN&#39;</td>
+                        <td class="money-line subtract">-98,35 &euro;</td>
+                        <td class="money-line">112.000 &euro;</td>
+                    </tr>
+                    <tr>
+                        <td>18.09.2025</td>
+                        <td>LOBSTERING IN BED</td>
+                        <td class="money-line subtract">-100 &euro;</td>
+                        <td class="money-line">111.900 &euro;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        (function(){
+          const page = document.getElementById('page');
+          const overlay = document.getElementById('overlay');
+          const panel = overlay.querySelector('.panel');
+
+          let open = false;
+          function setOpen(state){
+            open = !!state;
+            if (open){
+              page.classList.add('bw');
+              overlay.classList.add('open');
+              overlay.setAttribute('aria-hidden', 'false');
+              // move focus to panel (nice for keyboard users)
+              panel.setAttribute('tabindex','-1');
+              panel.focus({preventScroll:true});
+              // prevent background scrolling while open
+              document.documentElement.style.overflow = 'hidden';
+            } else {
+              page.classList.remove('bw');
+              overlay.classList.remove('open');
+              overlay.setAttribute('aria-hidden', 'true');
+              panel.removeAttribute('tabindex');
+              document.documentElement.style.overflow = '';
+            }
+          }
+
+          // Toggle on any click/tap anywhere on the document
+          document.addEventListener('click', function(e){
+            // NOTE: this toggles even if you click a link/button. If you prefer to ignore interactive controls,
+            // uncomment the optional guard below (see further down in this script).
+            setOpen(!open);
+          }, {passive:true});
+        })();
+    </script>
 </body>
 </html>
+
+
