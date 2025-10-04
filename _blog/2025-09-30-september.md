@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "September Adventures"
-date: 2025-09-31
+date: 2025-09-30
 thumbnail: https://i.imgur.com/fcihjp3l.jpeg 
 info: a lot of walking
 ---
