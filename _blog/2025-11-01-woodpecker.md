@@ -3,12 +3,12 @@ layout: post
 title: "Woodpecker"
 date: 2025-11-01
 thumbnail: https://i.imgur.com/14LQ5Lrl.jpeg 
-info: look at this gal
+info: look at her 🥹
 ---
 
 I wasn't happy cutting down a lot of our trees to keep them in check, because everything is so barren now.
 <br>
-But on the 1st a woodpecker visited - I've never seen one before; so pretty. 🥹
+But on the 1st a woodpecker visited - I've never seen one before; so pretty.
 <br>
 Since it doesn't have red on the back of its head, it's a female bird. ☝️
 <br>
