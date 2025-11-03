@@ -3,7 +3,7 @@ layout: post
 title: "Woodpecker"
 date: 2025-11-01
 thumbnail: https://i.imgur.com/14LQ5Lrl.jpeg 
-info: look at her 🥹
+info: look at her :o
 ---
 
 I wasn't happy cutting down a lot of our trees to keep them in check, because everything is so barren now.
