@@ -1,337 +1,317 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Nipaanda - Debt</title>
-    <meta name="description" content="Personal website of Nipaanda. Feel free to look around! o7">
-    <meta name="robots" content="index,follow">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nipaanda - Debt</title>
+  <meta name="description" content="Personal website of Nipaanda. Feel free to look around! o7">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-    <style>
-        :root {
-            --spin-speed: 72s;
-            --gap: 10deg;
-            --blue: #0b63d9;
-            --yellow: #ffd233;
-            --wheel-scale: 220vmax;
-        }
+  <style>
+    :root {
+      --spin-speed: 72s;
+      --gap: 10deg;
+      --blue: #0b63d9;
+      --yellow: #ffd233;
+      --wheel-scale: 220vmax;
+      --panel-width: min(720px, 90vw);
+      --anim-duration: 520ms;
+      --easing: cubic-bezier(0.22, 1, 0.36, 1);
+    }
 
-        html, body {
-            height: 100%;
-            margin: 0;
-            font-family: 'Comic Sans MS' !important;
-        }
+    html, body { height: 100%; margin: 0; font-family: 'Comic Sans MS' !important; }
+    body { min-height: 100vh; background: #031022; color: #111; overflow: hidden; }
 
-        body {
-            min-height: 100vh;
-            background: #031022;
-            color: #111;
-            overflow: hidden;
-        }
+    .wheel-bg {
+      position: fixed; left: 50%; top: 50%;
+      width: var(--wheel-scale); height: var(--wheel-scale);
+      transform: translate(-50%, -50%) rotate(0deg);
+      z-index: 0; pointer-events: none;
+      background: repeating-conic-gradient(from 0deg at 50% 50%, var(--blue) 0 calc(var(--gap)), var(--yellow) calc(var(--gap)) calc(calc(var(--gap) * 2)));
+      will-change: transform; transform-origin: 50% 50%;
+      animation: spin linear infinite; animation-duration: var(--spin-speed);
+      box-shadow: inset 0 0 180px rgba(0,0,0,0.25);
+    }
 
-        .wheel-bg {
-            position: fixed;
-            left: 50%;
-            top: 50%;
-            width: var(--wheel-scale);
-            height: var(--wheel-scale);
-            transform: translate(-50%, -50%) rotate(0deg);
-            z-index: 0;
-            pointer-events: none;
-            background: repeating-conic-gradient( from 0deg at 50% 50%, var(--blue) 0 calc(var(--gap)), var(--yellow) calc(var(--gap)) calc(calc(var(--gap) * 2)) );
-            will-change: transform;
-            transform-origin: 50% 50%;
-            animation: spin linear infinite;
-            animation-duration: var(--spin-speed);
-            box-shadow: inset 0 0 180px rgba(0,0,0,0.25);
-        }
+    .big-text { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); font-size: 7vw; font-weight: 900; white-space: nowrap; }
+    .rainbow-text { background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .big-text {
-            position: absolute;
-            top: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 7vw;
-            font-weight: 900;
-            white-space: nowrap;
-        }
+    @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
 
-        .rainbow-text {
-            background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    .center-spot {
+      position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%);
+      z-index: 2; width: 100%; height: 20%; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: auto; text-align: center;
+      background: radial-gradient(circle at 50% 50%, rgb(11, 24, 217) 35%, transparent 80%);
+    }
+    .center-spot .message {
+      padding: 1.2rem; max-width: 85%; font-weight: 800; color: #ffd233; font-size: 3rem; line-height: 1;
+      user-select: text; text-shadow: 0 5px 0 black; white-space: nowrap;
+    }
 
-        @keyframes spin {
-            to {
-                transform: translate(-50%, -50%) rotate(360deg);
-            }
-        }
+    * { box-sizing: border-box; }
 
-        .center-spot {
-            position: fixed;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 2;
-            width: 100%;
-            height: 20%;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            pointer-events: auto;
-            text-align: center;
-            background: radial-gradient( circle at 50% 50%, rgb(11, 24, 217) 35%, transparent 80% );
-        }
+    /* page & overlay */
+    #page { min-height: 100vh; min-width: 100vw; transition: filter 1360ms var(--easing), opacity 1360ms var(--easing); }
+    #page.bw { filter: grayscale(100%); }
 
-            .center-spot .message {
-                padding: 1.2rem;
-                max-width: 85%;
-                font-weight: 800;
-                color: #ffd233;
-                font-size: 3rem;
-                line-height: 1;
-                user-select: text;
-                text-shadow: 0 5px 0 black;
-                white-space: nowrap;
-            }
+    #overlay { position: fixed; inset: 0; z-index: 1000; pointer-events: none; }
+    #overlay.open { pointer-events: auto; }
+    #overlay .backdrop { position: absolute; inset: 0; background: transparent; transition: background 1360ms var(--easing); will-change: background; }
+    #overlay.open .backdrop { background: rgba(0,0,0,0.25); pointer-events: auto; }
 
-        @media (max-width:420px) {
-            : root {
-                --gap: 12deg;
-            }
-        }
+    .panel {
+      position: fixed; left: 50%; top: 50%;
+      width: var(--panel-width); max-height: 86vh; overflow: auto; padding: 10px; border-radius: 12px;
+      background: #fff; box-shadow: 0 20px 50px rgba(2,6,23,0.45); z-index: 1010;
+      --tx: 150%;
+      transform: translateX(var(--tx)) translateY(-50%);
+      transition: transform var(--anim-duration) var(--easing), opacity 240ms var(--easing);
+      opacity: 0; will-change: transform, opacity; pointer-events: auto;
+    }
+    #overlay.open .panel { --tx: -50%; opacity: 1; }
 
+    /* table (desktop) */
+    .swoop-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
+    .swoop-table thead th { padding: 8px 6px; border-bottom: 2px solid #eee; font-weight: 600; }
+    .swoop-table tbody td { padding: 8px; border-bottom: 1px solid #f2f2f2; vertical-align: top; }
+    .swoop-table tbody tr:last-child td { border-bottom: none; }
+    .money-line { white-space: nowrap; text-align: right; }
+    .add { color: red; }
+    .subtract { color: green; }
 
+    /* cards container - hidden on large screens */
+    .cards { display: none; gap: 10px; margin-top: 8px; }
+    .card {
+      background: linear-gradient(180deg,#ffffff 0%, #fbfbff 100%);
+      border-radius: 10px; box-shadow: 0 6px 18px rgba(2,6,23,0.12);
+      padding: 10px; display: grid; grid-template-columns: 1fr auto; gap: 6px; align-items: start;
+      border: 1px solid #eee;
+    }
+    .card .meta { font-size: 13px; color: #333; font-weight: 700; }
+    .card .reason { font-size: 15px; color: #111; margin-top: 6px; grid-column: 1 / -1; }
+    .card .amount { font-weight: 900; text-align: right; white-space: nowrap; }
+    .card .new-total { font-size: 13px; color: #666; text-align: right; }
+    .card .reason small { display:block; font-weight:600; color:#555; margin-top:6px; }
 
+    /* small screen layout: hide table, show cards */
+    @media (max-width: 520px) {
+      .panel { padding: 12px; width: 96vw; border-radius: 10px; }
+      .swoop-table { display: none; }
+      .cards { display: grid; }
+      .center-spot .message { font-size: 2rem; }
+    }
 
+    /* optional: reduce table padding slightly on small */
+    @media (max-width: 760px) {
+      .swoop-table thead th, .swoop-table td { font-size: 13px; padding: 6px; }
+    }
 
-
-        :root {
-            --panel-width: min(720px, 90vw);
-            --anim-duration: 520ms;
-            --easing: cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        * {
-            box-sizing: border-box
-        }
-
-        /* Wrap the site content in #page so we can apply a filter to it */
-        #page {
-            min-height: 100vh;
-            min-width: 100vw;
-            transition: filter 1360ms var(--easing), opacity 1360ms var(--easing);
-        }
-            /* when active, everything in #page becomes black & white */
-            #page.bw {
-                filter: grayscale(100%);
-            }
-
-        /* Overlay covers the viewport and holds backdrop + panel */
-        #overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 1000;
-            pointer-events: none; /* enabled only when open */
-        }
-
-            #overlay.open {
-                pointer-events: auto;
-            }
-
-            /* subtle dark backdrop when open */
-            #overlay .backdrop {
-                position: absolute;
-                inset: 0;
-                background: transparent;
-                transition: background 1360ms var(--easing);
-                will-change: background;
-            }
-
-            #overlay.open .backdrop {
-                background: rgba(0,0,0,0.25);
-                pointer-events: auto; /* allow clicks */
-            }
-
-        /* panel that swoops in from the right and is vertically centered */
-        .panel {
-            position: fixed;
-            left: 50%;
-            top: 50%;
-            width: var(--panel-width);
-            max-height: 86vh;
-            overflow: auto;
-            padding: 10px;
-            border-radius: 12px;
-            background: #fff;
-            box-shadow: 0 20px 50px rgba(2,6,23,0.45);
-            z-index: 1010;
-            /* animate horizontal movement using CSS variable --tx */
-            --tx: 150%;
-            transform: translateX(var(--tx)) translateY(-50%);
-            transition: transform var(--anim-duration) var(--easing), opacity 240ms var(--easing);
-            opacity: 0;
-            will-change: transform, opacity;
-            pointer-events: auto;
-        }
-        /* open state -> centered */
-        #overlay.open .panel {
-            --tx: -50%;
-            opacity: 1;
-        }
-
-        /* table style inside the panel */
-        .swoop-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 14px;
-        }
-
-            .swoop-table thead th {
-                padding: 8px 6px;
-                border-bottom: 2px solid #eee;
-                font-weight: 600;
-            }
-
-            .swoop-table tbody td {
-                padding: 8px;
-                border-bottom: 1px solid #f2f2f2;
-            }
-
-            .swoop-table tbody tr:last-child td {
-                border-bottom: none;
-            }
-
-        /* small screen adjustments */
-        @media (max-width:520px) {
-            .panel {
-                padding: 8px;
-                border-radius: 10px;
-                width: 96vw;
-            }
-
-            .swoop-table thead th, .swoop-table td {
-                font-size: 13px;
-                padding: 3px;
-            }
-        }
-
-        .money-line {
-            white-space: nowrap;
-            text-align: right;
-        }
-
-        .add {
-            color: red;
-        }
-
-        .subtract {
-            color: green;
-        }
-    </style>
+    /* utility for visually hiding but keeping accessible to screen readers */
+    .sr-only {
+      position: absolute !important;
+      width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+  </style>
 </head>
-
 <body>
-    <div id="page">
-        <div class="wheel-bg" aria-hidden="true"></div>
-
-        <span class="big-text rainbow-text">Current amount owed:</span>
-
-        <div class="center-spot" role="region">
-            <div class="message">111.000 Euro</div>
-        </div>
+  <div id="page">
+    <div class="wheel-bg" aria-hidden="true"></div>
+    <span class="big-text rainbow-text">Current amount owed:</span>
+    <div class="center-spot" role="region" aria-label="Current total owed">
+      <div class="message" id="currentAmount">111.000 Euro</div>
     </div>
+  </div>
 
-    <div id="overlay" aria-hidden="true">
-        <div class="backdrop" aria-hidden="true"></div>
+  <div id="overlay" aria-hidden="true">
+    <div class="backdrop" aria-hidden="true"></div>
 
-        <div class="panel" role="dialog" aria-modal="true" aria-label="Swooping Table">
-            <table class="swoop-table" role="table">
-                <caption style="caption-side: top; font-weight: bold;">History of the [REDACTED]&#39;s debt</caption>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Reason</th>
-                        <th>Amount</th>
-                        <th>New Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>08.06.2025</td>
-                        <td>Destruction of ice cream parlor</td>
-                        <td class="money-line add">+112.098,35 &euro;</td>
-                        <td class="money-line">112.098,35 &euro;</td>
-                    </tr>
-                    <tr>
-                        <td>25.07.2025</td>
-                        <td>MORNIN&#39;</td>
-                        <td class="money-line subtract">-98,35 &euro;</td>
-                        <td class="money-line">112.000,00 &euro;</td>
-                    </tr>
-                    <tr>
-                        <td>18.09.2025</td>
-                        <td>LOBSTERING IN BED</td>
-                        <td class="money-line subtract">-100,00 &euro;</td>
-                        <td class="money-line">111.900,00 &euro;</td>
-                    </tr>
-                    <tr>
-                        <td>29.09.2025</td>
-                        <td>BOOP TICKET</td>
-                        <td class="money-line">&quot;free&quot;</td>
-                        <td class="money-line">no change</td>
-                    </tr>
-                    <tr>
-                        <td>08.11.2025</td>
-                        <td>travel photos &amp; being emotional support nugget</td>
-                        <td class="money-line subtract">-900,00 &euro;</td>
-                        <td class="money-line">111.000 &euro;</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="panel" role="dialog" aria-modal="true" aria-label="Swooping Table">
+      <!-- Desktop table (kept for larger screens and screen readers) -->
+      <table class="swoop-table" role="table" aria-describedby="tableCaption">
+        <caption id="tableCaption" style="caption-side: top; font-weight: bold;">History of the [REDACTED]'s debt</caption>
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Reason</th>
+            <th scope="col">Amount</th>
+            <th scope="col">New Total</th>
+          </tr>
+        </thead>
+        <tbody id="swoopBody">
+          <tr>
+            <td>08.06.2025</td>
+            <td>Destruction of ice cream parlor</td>
+            <td class="money-line add">+112.098,35 &euro;</td>
+            <td class="money-line">112.098,35 &euro;</td>
+          </tr>
+          <tr>
+            <td>25.07.2025</td>
+            <td>MORNIN'</td>
+            <td class="money-line subtract">-98,35 &euro;</td>
+            <td class="money-line">112.000,00 &euro;</td>
+          </tr>
+          <tr>
+            <td>18.09.2025</td>
+            <td>LOBSTERING IN BED</td>
+            <td class="money-line subtract">-100,00 &euro;</td>
+            <td class="money-line">111.900,00 &euro;</td>
+          </tr>
+          <tr>
+            <td>29.09.2025</td>
+            <td>BOOP TICKET</td>
+            <td class="money-line">"free"</td>
+            <td class="money-line">no change</td>
+          </tr>
+          <tr>
+            <td>08.11.2025</td>
+            <td>travel photos &amp; being emotional support nugget</td>
+            <td class="money-line subtract">-900,00 &euro;</td>
+            <td class="money-line">111.000 &euro;</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Cards container: generated from table rows for small screens -->
+      <div class="cards" id="cardsContainer" aria-hidden="true"></div>
     </div>
+  </div>
 
-    <script>
-        (function(){
-          const page = document.getElementById('page');
-          const overlay = document.getElementById('overlay');
-          const panel = overlay.querySelector('.panel');
+  <script>
+    (function(){
+      const page = document.getElementById('page');
+      const overlay = document.getElementById('overlay');
+      const panel = overlay.querySelector('.panel');
+      const cardsContainer = document.getElementById('cardsContainer');
+      const table = document.querySelector('.swoop-table');
+      const tbody = document.getElementById('swoopBody');
+      let open = false;
 
-          let open = false;
-          function setOpen(state){
-            open = !!state;
-            if (open){
-              page.classList.add('bw');
-              overlay.classList.add('open');
-              overlay.setAttribute('aria-hidden', 'false');
-              // move focus to panel (nice for keyboard users)
-              panel.setAttribute('tabindex','-1');
-              panel.focus({preventScroll:true});
-              // prevent background scrolling while open
-              document.documentElement.style.overflow = 'hidden';
-            } else {
-              page.classList.remove('bw');
-              overlay.classList.remove('open');
-              overlay.setAttribute('aria-hidden', 'true');
-              panel.removeAttribute('tabindex');
-              document.documentElement.style.overflow = '';
-            }
-          }
+      function setOpen(state){
+        open = !!state;
+        if (open){
+          page.classList.add('bw');
+          overlay.classList.add('open');
+          overlay.setAttribute('aria-hidden', 'false');
+          panel.setAttribute('tabindex','-1');
+          panel.focus({preventScroll:true});
+          document.documentElement.style.overflow = 'hidden';
+          // If cards are in use, ensure they are visible to AT when overlay opens
+          syncCardsVisibility();
+        } else {
+          page.classList.remove('bw');
+          overlay.classList.remove('open');
+          overlay.setAttribute('aria-hidden', 'true');
+          panel.removeAttribute('tabindex');
+          document.documentElement.style.overflow = '';
+        }
+      }
 
-          // Toggle on any click/tap anywhere on the document
-          document.addEventListener('click', function(e){
-            // NOTE: this toggles even if you click a link/button. If you prefer to ignore interactive controls,
-            // uncomment the optional guard below (see further down in this script).
-            setOpen(!open);
-          }, {passive:true});
-        })();
-    </script>
+      // Toggle on any click/tap anywhere on the document
+      document.addEventListener('click', function(e){
+        setOpen(!open);
+      }, {passive:true});
+
+      // Build card markup from table rows (keeps table as source of truth)
+      function buildCardsFromTable() {
+        // Clear existing cards
+        while (cardsContainer.firstChild) cardsContainer.removeChild(cardsContainer.firstChild);
+
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+        rows.forEach((tr, i) => {
+          const cells = Array.from(tr.querySelectorAll('td'));
+          if (cells.length < 4) return; // skip malformed rows
+
+          const date = cells[0].textContent.trim();
+          const reason = cells[1].innerHTML.trim(); // keep markup/entities
+          const amountNode = cells[2].cloneNode(true);
+          const newTotal = cells[3].textContent.trim();
+
+          // Create card element
+          const card = document.createElement('article');
+          card.className = 'card';
+          card.setAttribute('role','article');
+          card.setAttribute('aria-label', `Entry ${i+1} on ${date}`);
+
+          const left = document.createElement('div');
+          left.style.display = 'flex';
+          left.style.flexDirection = 'column';
+
+          const meta = document.createElement('div');
+          meta.className = 'meta';
+          meta.textContent = date;
+
+          const reasonEl = document.createElement('div');
+          reasonEl.className = 'reason';
+          reasonEl.innerHTML = reason; // reason may contain entities
+
+          left.appendChild(meta);
+          left.appendChild(reasonEl);
+
+          const right = document.createElement('div');
+          right.style.display = 'flex';
+          right.style.flexDirection = 'column';
+          right.style.alignItems = 'flex-end';
+          right.style.justifyContent = 'center';
+
+          const amountEl = document.createElement('div');
+          amountEl.className = 'amount';
+          // preserve classes on the amount cell (add/subtract styling)
+          if (amountNode.className) amountEl.className += ' ' + amountNode.className;
+          amountEl.innerHTML = amountNode.innerHTML;
+
+          const newTotalEl = document.createElement('div');
+          newTotalEl.className = 'new-total';
+          newTotalEl.textContent = newTotal;
+
+          right.appendChild(amountEl);
+          right.appendChild(newTotalEl);
+
+          card.appendChild(left);
+          card.appendChild(right);
+
+          cardsContainer.appendChild(card);
+        });
+      }
+
+      // Show/hide the cards container depending on viewport width
+      function syncCardsVisibility() {
+        const isSmall = window.matchMedia('(max-width: 520px)').matches;
+        if (isSmall) {
+          cardsContainer.setAttribute('aria-hidden', String(!open)); // if overlay closed, keep hidden to AT
+        } else {
+          cardsContainer.setAttribute('aria-hidden', 'true');
+        }
+      }
+
+      // Rebuild cards initially and on resize (debounced)
+      buildCardsFromTable();
+      syncCardsVisibility();
+
+      let resizeTimer = null;
+      window.addEventListener('resize', function(){
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function(){
+          buildCardsFromTable();
+          syncCardsVisibility();
+        }, 120);
+      });
+
+      // If table content changes dynamically in future, you can call buildCardsFromTable()
+      // Example: observe changes and rebuild (optional)
+      const observer = new MutationObserver(function() {
+        buildCardsFromTable();
+      });
+      observer.observe(tbody, { childList: true, subtree: true });
+
+      // Accessibility: close overlay with Escape
+      window.addEventListener('keydown', function(e){
+        if (e.key === 'Escape' && open) setOpen(false);
+      });
+    })();
+  </script>
 </body>
 </html>
-
-
