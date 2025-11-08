@@ -332,66 +332,102 @@
         })();
     </script>
 
-    <!-- Paste this after your table(s). Updated: on mobile the card container is slightly darker and everything is centered. -->
+<!-- Paste this after your table(s). Updated per your requests:
+     - The *outer background* (behind the cards) is slightly darker on mobile (cards remain white).
+     - Preserves/inherits any font color you set on cells (no forced color).
+     - Table title (if immediately before the table as an H1..H6) will be centered on mobile.
+     - Stronger vertical column dividers on wide screens.
+-->
 <style id="responsive-convert-styles">
-/* Desktop: keep table normal */
+/* --- Desktop / default table styling --- */
 .responsive-convert { width:100%; border-collapse:collapse; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; }
-.responsive-convert thead th { text-align:left; padding:10px 12px; font-weight:600; border-bottom:2px solid #e8e8e8; }
-.responsive-convert tbody td { padding:10px 12px; border-bottom:1px solid #f0f0f0; vertical-align:top; white-space:normal; word-break:break-word; hyphens:auto; line-height:1.35; font-size:15px; }
+.responsive-convert thead th {
+  text-align:left;
+  padding:10px 12px;
+  font-weight:600;
+  border-bottom:2px solid #dfe3e8;
+  border-right: 1px solid #e6e7ea; /* stronger vertical divider */
+}
+.responsive-convert thead th:last-child { border-right: none; }
 
-/* Mobile: convert to stacked cards */
+.responsive-convert tbody td {
+  padding:10px 12px;
+  border-bottom:1px solid #e9ebee;
+  border-right: 1px solid #e6e7ea; /* vertical divider */
+  vertical-align:top;
+  white-space:normal;
+  word-break:break-word;
+  hyphens:auto;
+  line-height:1.35;
+  font-size:15px;
+}
+.responsive-convert tbody td:last-child { border-right: none; }
+
+/* keep first column slightly emphasized on desktop */
+.responsive-convert tbody td:first-child { font-weight:600; width:25%; }
+
+/* --- Mobile: stacked cards, centered column, outer background darker --- */
 @media (max-width:720px) {
-  /* center the table on the page and constrain width so cards feel like a centered column */
+  /* create a centered column area with slightly darker background */
+  .responsive-convert-outer {
+    background: #f0f2f6; /* slightly darker backdrop for the cards */
+    padding: 12px 0;     /* vertical padding so cards "float" on the background */
+    display: block;
+  }
+
+  /* constrain the inner table area so cards form a centered column */
   .responsive-convert {
-    max-width: 92vw; /* leave a thin gutter on very small screens */
-    margin: 12px auto;
+    max-width: 92vw;      /* keeps a small gutter */
+    margin: 0 auto;       /* center horizontally inside the outer bg */
   }
 
   .responsive-convert thead { display:none !important; }
 
   .responsive-convert, .responsive-convert tbody, .responsive-convert tr, .responsive-convert td {
-    display:block; width:100%;
+    display:block;
+    width:100%;
   }
 
-  /* card appearance - slightly darker container */
+  /* card appearance — keep cards white while outer is darker */
   .responsive-convert tr {
-    margin:0 auto 12px;
-    border:1px solid #e2e4e8;
-    border-radius:10px;
-    padding:12px;
-    background:#f6f7f9; /* slightly darker than white */
-    box-shadow: 0 4px 18px rgba(10,10,12,0.04);
-    text-align: center; /* center everything inside the card */
+    margin: 0 auto 12px;
+    border: 1px solid #e2e4e8;
+    border-radius: 10px;
+    padding: 12px;
+    background: #ffffff; /* card stays white */
+    box-shadow: 0 6px 22px rgba(10,10,12,0.04);
+    text-align: center;
   }
 
   .responsive-convert td {
-    padding:8px 10px;
-    border:none;
-    display:block;
-    text-align: center; /* center cell content */
+    padding: 8px 10px;
+    border: none;
+    display: block;
+    text-align: center;
   }
 
+  /* label before each cell */
   .responsive-convert td::before {
     content: attr(data-label);
-    display:block;
+    display: block;
     font-weight:700;
-    margin-bottom:8px;
-    color:#222;
+    margin-bottom: 8px;
+    color: inherit;     /* don't override user's color */
     font-size:13px;
-    text-align:center; /* center the label text */
+    text-align:center;
   }
 
-  /* Value styling — ensure block and centered */
+  /* value styling — inherit color so any class on the TD or its children remains effective */
   .responsive-convert td .cell-value {
     display:block;
     font-weight:400;
-    color:#111;
+    color: inherit;     /* crucial: allow custom font colors to persist */
     text-align:center;
   }
 
   /* tighten spacing on very small screens */
   @media (max-width:420px) {
-    .responsive-convert { max-width: 96vw; margin: 8px auto; }
+    .responsive-convert { max-width: 96vw; }
     .responsive-convert tr { padding:10px; }
     .responsive-convert td { padding:6px 6px; font-size:14px; }
     .responsive-convert td::before { font-size:12px; margin-bottom:6px; }
@@ -416,6 +452,14 @@
     table.dataset.responsiveConverted = '1';
     table.classList.add('responsive-convert');
 
+    // If not already wrapped, wrap table in an outer div so we can style the backdrop
+    if (!table.parentElement.classList.contains('responsive-convert-outer')) {
+      var wrapper = document.createElement('div');
+      wrapper.className = 'responsive-convert-outer';
+      table.parentNode.insertBefore(wrapper, table);
+      wrapper.appendChild(table);
+    }
+
     // collect header texts (respect <th scope="col"> order)
     var headers = [];
     var thead = table.querySelector('thead');
@@ -424,7 +468,7 @@
       ths.forEach(function (th) { headers.push((th.textContent || '').trim()); });
     }
 
-    // fallback: if no thead or headers are empty, try first row of tbody as headers (rare)
+    // fallback: if no thead or headers are empty, try first row of table as headers
     if (!headers.length) {
       var firstRow = table.querySelector('tr');
       if (firstRow) {
@@ -443,21 +487,52 @@
       var tds = tr.querySelectorAll('td,th');
       tds.forEach(function (td, idx) {
         var label = headers[idx] || ('Column ' + (idx + 1));
-        // Only set if not already present (preserve any manual data-label)
+        // Only set if not already present (preserve manual data-label)
         if (!td.hasAttribute('data-label')) td.setAttribute('data-label', label);
         // Set aria-label for reliable screen-reader reading: "Label: value"
         var text = (td.textContent || '').trim().replace(/\s+/g, ' ');
         td.setAttribute('aria-label', label + ': ' + text);
-        // wrap existing child nodes in a span.cell-value for style isolation if not already
-        if (!td.querySelector('.cell-value')) {
+
+        // Wrap existing child nodes in a span.cell-value but preserve classes/styles.
+        // If td already contains a single element and that element already has a class that controls color,
+        // we should avoid clobbering it. Strategy: only create .cell-value wrapper if td contains text nodes or multiple children.
+        var needsWrap = false;
+        // check for single child that is an element and nothing else
+        var children = Array.prototype.slice.call(td.childNodes);
+        var onlyOneElementChild = (children.length === 1 && children[0].nodeType === 1);
+        var hasTextNode = children.some(function (n) { return n.nodeType === 3 && /\S/.test(n.nodeValue || ''); });
+
+        if (hasTextNode || !onlyOneElementChild) needsWrap = true;
+
+        if (needsWrap && !td.querySelector('.cell-value')) {
           var span = document.createElement('span');
           span.className = 'cell-value';
-          // move children into span
+          // move children into span (preserves their classes)
           while (td.firstChild) span.appendChild(td.firstChild);
           td.appendChild(span);
+        } else {
+          // If there is a single element child, ensure it gets cell-value class (but don't overwrite existing classes)
+          if (!needsWrap && onlyOneElementChild) {
+            var el = children[0];
+            if (!el.classList.contains('cell-value')) el.classList.add('cell-value');
+          }
         }
       });
     });
+
+    // center table title if the element immediately before the wrapper is a heading (H1..H6).
+    var wrapper = table.closest('.responsive-convert-outer');
+    var prev = wrapper ? wrapper.previousElementSibling : null;
+    if (prev && /^H[1-6]$/.test(prev.tagName)) {
+      prev.classList.add('responsive-table-title'); // will be centered via CSS on mobile
+      // Add a small CSS rule to center that specific class on mobile
+      if (!document.getElementById('responsive-convert-title-style')) {
+        var style = document.createElement('style');
+        style.id = 'responsive-convert-title-style';
+        style.textContent = '@media (max-width:720px) { .responsive-table-title { text-align:center !important; margin-left: auto !important; margin-right: auto !important; } }';
+        document.head.appendChild(style);
+      }
+    }
   });
 })();
 </script>
