@@ -19,7 +19,7 @@
       --anim-duration:520ms;
       --easing:cubic-bezier(0.22,1,0.36,1);
       --money-size:1.05rem;
-      --money-weight:900;
+      --money-weight:900; /* used for new-total prominence */
       --newtotal-size:0.95rem;
       --newtotal-color:#222;
     }
@@ -43,7 +43,7 @@
     @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg);} }
 
     .center-spot{
-      position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);
+      position:fixed;left:50%;top:50%;transform:translate(-50%, -50%);
       z-index:2;width:100%;height:20%;border-radius:50%;
       display:flex;align-items:center;justify-content:center;
       pointer-events:auto;text-align:center;
@@ -101,15 +101,15 @@
     .card .meta{font-size:13px;color:#333;font-weight:700;}
     .card .reason{font-size:15px;color:#111;margin-top:6px;grid-column:1 / -1;}
 
-    /* Preserve original prominence: New Total now visually prominent, Amount bold and colored */
+    /* New Total: prominent */
     .card .new-total{
       font-size:var(--money-size);font-weight:var(--money-weight);color:var(--newtotal-color);
       text-align:right;white-space:nowrap;margin-bottom:6px;
     }
+    /* Amount: normal weight (NOT bold), preserve color classes */
     .card .amount{
-      font-size:var(--newtotal-size);font-weight:var(--money-weight);text-align:right;white-space:nowrap;
+      font-size:var(--newtotal-size);font-weight:400;text-align:right;white-space:nowrap;
     }
-    /* Keep add/subtract colors on amount */
     .card .add{color:red;}
     .card .subtract{color:green;}
 
@@ -259,7 +259,7 @@
           right.style.alignItems='flex-end';
           right.style.justifyContent='center';
 
-          // New Total (prominent) then Amount (bold, colored)
+          // New Total (prominent) then Amount (normal weight)
           const newTotalEl = document.createElement('div');
           newTotalEl.className='new-total';
           newTotalEl.textContent = newTotal;
