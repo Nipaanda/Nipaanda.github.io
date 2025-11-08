@@ -9,114 +9,123 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 
   <style>
-    :root {
-      --spin-speed: 72s;
-      --gap: 10deg;
-      --blue: #0b63d9;
-      --yellow: #ffd233;
-      --wheel-scale: 220vmax;
-      --panel-width: min(720px, 90vw);
-      --anim-duration: 520ms;
-      --easing: cubic-bezier(0.22, 1, 0.36, 1);
+    :root{
+      --spin-speed:72s;
+      --gap:10deg;
+      --blue:#0b63d9;
+      --yellow:#ffd233;
+      --wheel-scale:220vmax;
+      --panel-width:min(720px,90vw);
+      --anim-duration:520ms;
+      --easing:cubic-bezier(0.22,1,0.36,1);
+      --money-size:1.05rem;
+      --money-weight:900;
+      --newtotal-size:0.95rem;
+      --newtotal-color:#222;
     }
 
-    html, body { height: 100%; margin: 0; font-family: 'Comic Sans MS' !important; }
-    body { min-height: 100vh; background: #031022; color: #111; overflow: hidden; }
+    html,body{height:100%;margin:0;font-family:'Comic Sans MS' !important;}
+    body{min-height:100vh;background:#031022;color:#111;overflow:hidden;}
 
-    .wheel-bg {
-      position: fixed; left: 50%; top: 50%;
-      width: var(--wheel-scale); height: var(--wheel-scale);
-      transform: translate(-50%, -50%) rotate(0deg);
-      z-index: 0; pointer-events: none;
-      background: repeating-conic-gradient(from 0deg at 50% 50%, var(--blue) 0 calc(var(--gap)), var(--yellow) calc(var(--gap)) calc(calc(var(--gap) * 2)));
-      will-change: transform; transform-origin: 50% 50%;
-      animation: spin linear infinite; animation-duration: var(--spin-speed);
-      box-shadow: inset 0 0 180px rgba(0,0,0,0.25);
+    .wheel-bg{
+      position:fixed;left:50%;top:50%;
+      width:var(--wheel-scale);height:var(--wheel-scale);
+      transform:translate(-50%,-50%) rotate(0deg);
+      z-index:0;pointer-events:none;
+      background:repeating-conic-gradient(from 0deg at 50% 50%,var(--blue) 0 calc(var(--gap)),var(--yellow) calc(var(--gap)) calc(calc(var(--gap)*2)));
+      will-change:transform;transform-origin:50% 50%;
+      animation:spin linear infinite;animation-duration:var(--spin-speed);
+      box-shadow:inset 0 0 180px rgba(0,0,0,0.25);
     }
 
-    .big-text { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); font-size: 7vw; font-weight: 900; white-space: nowrap; }
-    .rainbow-text { background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .big-text{position:absolute;top:30px;left:50%;transform:translateX(-50%);font-size:7vw;font-weight:900;white-space:nowrap;}
+    .rainbow-text{background-image:linear-gradient(to left,violet,indigo,blue,green,yellow,orange,red);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg);} }
 
-    @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
-
-    .center-spot {
-      position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%);
-      z-index: 2; width: 100%; height: 20%; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      pointer-events: auto; text-align: center;
-      background: radial-gradient(circle at 50% 50%, rgb(11, 24, 217) 35%, transparent 80%);
+    .center-spot{
+      position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);
+      z-index:2;width:100%;height:20%;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      pointer-events:auto;text-align:center;
+      background:radial-gradient(circle at 50% 50%, rgb(11,24,217) 35%, transparent 80%);
     }
-    .center-spot .message {
-      padding: 1.2rem; max-width: 85%; font-weight: 800; color: #ffd233; font-size: 3rem; line-height: 1;
-      user-select: text; text-shadow: 0 5px 0 black; white-space: nowrap;
-    }
-
-    * { box-sizing: border-box; }
-
-    /* page & overlay */
-    #page { min-height: 100vh; min-width: 100vw; transition: filter 1360ms var(--easing), opacity 1360ms var(--easing); }
-    #page.bw { filter: grayscale(100%); }
-
-    #overlay { position: fixed; inset: 0; z-index: 1000; pointer-events: none; }
-    #overlay.open { pointer-events: auto; }
-    #overlay .backdrop { position: absolute; inset: 0; background: transparent; transition: background 1360ms var(--easing); will-change: background; }
-    #overlay.open .backdrop { background: rgba(0,0,0,0.25); pointer-events: auto; }
-
-    .panel {
-      position: fixed; left: 50%; top: 50%;
-      width: var(--panel-width); max-height: 86vh; overflow: auto; padding: 10px; border-radius: 12px;
-      background: #fff; box-shadow: 0 20px 50px rgba(2,6,23,0.45); z-index: 1010;
-      --tx: 150%;
-      transform: translateX(var(--tx)) translateY(-50%);
-      transition: transform var(--anim-duration) var(--easing), opacity 240ms var(--easing);
-      opacity: 0; will-change: transform, opacity; pointer-events: auto;
-    }
-    #overlay.open .panel { --tx: -50%; opacity: 1; }
-
-    /* heading inside panel */
-    .panel-title {
-      font-size: 1.1rem; font-weight: 800; color: #111; margin: 4px 6px 12px 6px;
+    .center-spot .message{
+      padding:1.2rem;max-width:85%;font-weight:800;color:#ffd233;font-size:3rem;line-height:1;
+      user-select:text;text-shadow:0 5px 0 black;white-space:nowrap;
     }
 
-    /* table (desktop) */
-    .swoop-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
-    .swoop-table thead th { padding: 8px 6px; border-bottom: 2px solid #eee; font-weight: 600; }
-    .swoop-table tbody td { padding: 8px; border-bottom: 1px solid #f2f2f2; vertical-align: top; }
-    .swoop-table tbody tr:last-child td { border-bottom: none; }
-    .money-line { white-space: nowrap; text-align: right; }
-    .add { color: red; }
-    .subtract { color: green; }
+    *{box-sizing:border-box;}
 
-    /* cards container - hidden on large screens */
-    .cards { display: none; gap: 10px; margin-top: 8px; }
-    .card {
-      background: linear-gradient(180deg,#ffffff 0%, #fbfbff 100%);
-      border-radius: 10px; box-shadow: 0 6px 18px rgba(2,6,23,0.12);
-      padding: 10px; display: grid; grid-template-columns: 1fr auto; gap: 6px; align-items: start;
-      border: 1px solid #eee;
+    #page{min-height:100vh;min-width:100vw;transition:filter 1360ms var(--easing), opacity 1360ms var(--easing);}
+    #page.bw{filter:grayscale(100%);}
+
+    #overlay{position:fixed;inset:0;z-index:1000;pointer-events:none;}
+    #overlay.open{pointer-events:auto;}
+    #overlay .backdrop{position:absolute;inset:0;background:transparent;transition:background 1360ms var(--easing);will-change:background;}
+    #overlay.open .backdrop{background:rgba(0,0,0,0.25);pointer-events:auto;}
+
+    .panel{
+      position:fixed;left:50%;top:50%;
+      width:var(--panel-width);max-height:86vh;overflow:auto;padding:10px;border-radius:12px;
+      background:#fff;box-shadow:0 20px 50px rgba(2,6,23,0.45);z-index:1010;
+      --tx:150%;
+      transform:translateX(var(--tx)) translateY(-50%);
+      transition:transform var(--anim-duration) var(--easing), opacity 240ms var(--easing);
+      opacity:0;will-change:transform,opacity;pointer-events:auto;
     }
-    .card .meta { font-size: 13px; color: #333; font-weight: 700; }
-    .card .reason { font-size: 15px; color: #111; margin-top: 6px; grid-column: 1 / -1; }
-    .card .amount { font-weight: 900; text-align: right; white-space: nowrap; }
-    .card .new-total { font-size: 13px; color: #666; text-align: right; margin-bottom:6px; }
+    #overlay.open .panel{--tx:-50%;opacity:1;}
 
-    /* small screen layout: hide table, show cards */
-    @media (max-width: 520px) {
-      .panel { padding: 12px; width: 96vw; border-radius: 10px; }
-      .swoop-table { display: none; }
-      .cards { display: grid; }
-      .center-spot .message { font-size: 2rem; }
+    /* centered, prominent panel title */
+    .panel-title{
+      font-size:1.05rem;font-weight:900;color:#111;margin:6px 6px 12px 6px;text-align:center;
+      display:block;
     }
 
-    /* optional: reduce table padding slightly on small */
-    @media (max-width: 760px) {
-      .swoop-table thead th, .swoop-table td { font-size: 13px; padding: 6px; }
+    /* desktop table */
+    .swoop-table{width:100%;border-collapse:collapse;text-align:left;font-size:14px;}
+    .swoop-table thead th{padding:8px 6px;border-bottom:2px solid #eee;font-weight:600;}
+    .swoop-table tbody td{padding:8px;border-bottom:1px solid #f2f2f2;vertical-align:top;}
+    .swoop-table tbody tr:last-child td{border-bottom:none;}
+    .money-line{white-space:nowrap;text-align:right;}
+    .add{color:red;}
+    .subtract{color:green;}
+
+    /* cards */
+    .cards{display:none;gap:10px;margin-top:8px;}
+    .card{
+      background:linear-gradient(180deg,#ffffff 0%, #fbfbff 100%);
+      border-radius:10px;box-shadow:0 6px 18px rgba(2,6,23,0.12);
+      padding:10px;display:grid;grid-template-columns:1fr auto;gap:6px;align-items:start;
+      border:1px solid #eee;
+    }
+    .card .meta{font-size:13px;color:#333;font-weight:700;}
+    .card .reason{font-size:15px;color:#111;margin-top:6px;grid-column:1 / -1;}
+
+    /* Preserve original prominence: New Total now visually prominent, Amount bold and colored */
+    .card .new-total{
+      font-size:var(--money-size);font-weight:var(--money-weight);color:var(--newtotal-color);
+      text-align:right;white-space:nowrap;margin-bottom:6px;
+    }
+    .card .amount{
+      font-size:var(--newtotal-size);font-weight:var(--money-weight);text-align:right;white-space:nowrap;
+    }
+    /* Keep add/subtract colors on amount */
+    .card .add{color:red;}
+    .card .subtract{color:green;}
+
+    @media (max-width:520px){
+      .panel{padding:12px;width:96vw;border-radius:10px;}
+      .swoop-table{display:none;}
+      .cards{display:grid;}
+      .center-spot .message{font-size:2rem;}
     }
 
-    .sr-only {
-      position: absolute !important;
-      width: 1px; height: 1px; padding: 0; margin: -1px;
-      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    @media (max-width:760px){
+      .swoop-table thead th, .swoop-table td{font-size:13px;padding:6px;}
+    }
+
+    .sr-only{
+      position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
     }
   </style>
 </head>
@@ -133,10 +142,8 @@
     <div class="backdrop" aria-hidden="true"></div>
 
     <div class="panel" role="dialog" aria-modal="true" aria-labelledby="historyTitle">
-      <!-- Visible title shared by table and cards -->
       <h2 id="historyTitle" class="panel-title">History of the [REDACTED]'s debt</h2>
 
-      <!-- Desktop table (kept for larger screens and screen readers) -->
       <table class="swoop-table" role="table" aria-describedby="tableCaption">
         <caption id="tableCaption" class="sr-only">History of the [REDACTED]'s debt</caption>
         <thead>
@@ -181,7 +188,6 @@
         </tbody>
       </table>
 
-      <!-- Cards container: generated from table rows for small screens -->
       <div class="cards" id="cardsContainer" aria-hidden="true"></div>
     </div>
   </div>
@@ -197,36 +203,31 @@
 
       function setOpen(state){
         open = !!state;
-        if (open){
+        if(open){
           page.classList.add('bw');
           overlay.classList.add('open');
-          overlay.setAttribute('aria-hidden', 'false');
+          overlay.setAttribute('aria-hidden','false');
           panel.setAttribute('tabindex','-1');
           panel.focus({preventScroll:true});
-          document.documentElement.style.overflow = 'hidden';
+          document.documentElement.style.overflow='hidden';
           syncCardsVisibility();
         } else {
           page.classList.remove('bw');
           overlay.classList.remove('open');
-          overlay.setAttribute('aria-hidden', 'true');
+          overlay.setAttribute('aria-hidden','true');
           panel.removeAttribute('tabindex');
-          document.documentElement.style.overflow = '';
+          document.documentElement.style.overflow='';
         }
       }
 
-      // Toggle on any click/tap anywhere on the document
-      document.addEventListener('click', function(e){
-        setOpen(!open);
-      }, {passive:true});
+      document.addEventListener('click', function(){ setOpen(!open); }, {passive:true});
 
-      // Build card markup from table rows (keeps table as source of truth)
-      function buildCardsFromTable() {
-        while (cardsContainer.firstChild) cardsContainer.removeChild(cardsContainer.firstChild);
+      function buildCardsFromTable(){
+        while(cardsContainer.firstChild) cardsContainer.removeChild(cardsContainer.firstChild);
         const rows = Array.from(tbody.querySelectorAll('tr'));
-        rows.forEach((tr, i) => {
+        rows.forEach((tr,i)=>{
           const cells = Array.from(tr.querySelectorAll('td'));
-          if (cells.length < 4) return;
-
+          if(cells.length < 4) return;
           const date = cells[0].textContent.trim();
           const reason = cells[1].innerHTML.trim();
           const amountNode = cells[2].cloneNode(true);
@@ -237,36 +238,35 @@
           card.setAttribute('role','article');
           card.setAttribute('aria-label', `Entry ${i+1} on ${date}`);
 
-          // Left column
           const left = document.createElement('div');
-          left.style.display = 'flex';
-          left.style.flexDirection = 'column';
+          left.style.display='flex';
+          left.style.flexDirection='column';
 
           const meta = document.createElement('div');
-          meta.className = 'meta';
+          meta.className='meta';
           meta.textContent = date;
 
           const reasonEl = document.createElement('div');
-          reasonEl.className = 'reason';
+          reasonEl.className='reason';
           reasonEl.innerHTML = reason;
 
           left.appendChild(meta);
           left.appendChild(reasonEl);
 
-          // Right column: New Total first, then Amount (swapped)
           const right = document.createElement('div');
-          right.style.display = 'flex';
-          right.style.flexDirection = 'column';
-          right.style.alignItems = 'flex-end';
-          right.style.justifyContent = 'center';
+          right.style.display='flex';
+          right.style.flexDirection='column';
+          right.style.alignItems='flex-end';
+          right.style.justifyContent='center';
 
+          // New Total (prominent) then Amount (bold, colored)
           const newTotalEl = document.createElement('div');
-          newTotalEl.className = 'new-total';
+          newTotalEl.className='new-total';
           newTotalEl.textContent = newTotal;
 
           const amountEl = document.createElement('div');
-          amountEl.className = 'amount';
-          if (amountNode.className) amountEl.className += ' ' + amountNode.className;
+          amountEl.className='amount';
+          if(amountNode.className) amountEl.className += ' ' + amountNode.className;
           amountEl.innerHTML = amountNode.innerHTML;
 
           right.appendChild(newTotalEl);
@@ -279,12 +279,12 @@
         });
       }
 
-      function syncCardsVisibility() {
-        const isSmall = window.matchMedia('(max-width: 520px)').matches;
-        if (isSmall) {
+      function syncCardsVisibility(){
+        const isSmall = window.matchMedia('(max-width:520px)').matches;
+        if(isSmall){
           cardsContainer.setAttribute('aria-hidden', String(!open));
         } else {
-          cardsContainer.setAttribute('aria-hidden', 'true');
+          cardsContainer.setAttribute('aria-hidden','true');
         }
       }
 
@@ -300,14 +300,11 @@
         }, 120);
       });
 
-      // Observe table mutations and rebuild cards
-      const observer = new MutationObserver(function() {
-        buildCardsFromTable();
-      });
-      observer.observe(tbody, { childList: true, subtree: true });
+      const observer = new MutationObserver(function(){ buildCardsFromTable(); });
+      observer.observe(tbody, { childList:true, subtree:true });
 
       window.addEventListener('keydown', function(e){
-        if (e.key === 'Escape' && open) setOpen(false);
+        if(e.key === 'Escape' && open) setOpen(false);
       });
     })();
   </script>
