@@ -331,6 +331,119 @@
           }, {passive:true});
         })();
     </script>
+
+    <!-- Responsive stacked-cards for existing tables.
+     Paste this after your table(s). -->
+<style id="responsive-convert-styles">
+/* Desktop: keep table normal */
+.responsive-convert { width:100%; border-collapse:collapse; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; }
+.responsive-convert thead th { text-align:left; padding:10px 12px; font-weight:600; border-bottom:2px solid #e8e8e8; }
+.responsive-convert tbody td { padding:10px 12px; border-bottom:1px solid #f0f0f0; vertical-align:top; white-space:normal; word-break:break-word; hyphens:auto; line-height:1.35; font-size:15px; }
+
+/* Mobile: convert to stacked cards */
+@media (max-width:720px) {
+  .responsive-convert thead { display:none !important; }
+
+  .responsive-convert, .responsive-convert tbody, .responsive-convert tr, .responsive-convert td {
+    display:block; width:100%;
+  }
+
+  .responsive-convert tr {
+    margin:0 0 12px;
+    border:1px solid #e9e9e9;
+    border-radius:8px;
+    padding:10px;
+    background:#fff;
+    box-shadow:0 1px 0 rgba(0,0,0,0.02);
+  }
+
+  .responsive-convert td {
+    padding:6px 8px;
+    border:none;
+    display:block;
+  }
+
+  .responsive-convert td::before {
+    content: attr(data-label);
+    display:block;
+    font-weight:700;
+    margin-bottom:6px;
+    color:#333;
+    font-size:13px;
+  }
+
+  .responsive-convert td .cell-value { display:block; font-weight:400; color:#222; }
+
+  @media (max-width:420px) {
+    .responsive-convert tr { padding:8px; }
+    .responsive-convert td { padding:6px 6px; font-size:14px; }
+    .responsive-convert td::before { font-size:12px; margin-bottom:4px; }
+  }
+}
+
+/* accessible visually-hidden helper (if needed) */
+.responsive-convert .sr-only {
+  position:absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap;
+}
+</style>
+
+<script>
+(function () {
+  // choose tables: those with class 'responsive-convert', otherwise all <table>
+  var tables = document.querySelectorAll('table.responsive-convert');
+  if (!tables.length) tables = document.querySelectorAll('table');
+
+  Array.prototype.forEach.call(tables, function (table) {
+    // mark the table as processed to avoid double-running
+    if (table.dataset.responsiveConverted === '1') return;
+    table.dataset.responsiveConverted = '1';
+    table.classList.add('responsive-convert');
+
+    // collect header texts (respect <th scope="col"> order)
+    var headers = [];
+    var thead = table.querySelector('thead');
+    if (thead) {
+      var ths = thead.querySelectorAll('th');
+      ths.forEach(function (th) { headers.push((th.textContent || '').trim()); });
+    }
+
+    // fallback: if no thead or headers are empty, try first row of tbody as headers (rare)
+    if (!headers.length) {
+      var firstRow = table.querySelector('tr');
+      if (firstRow) {
+        var cells = firstRow.querySelectorAll('th,td');
+        cells.forEach(function (c) { headers.push((c.textContent || '').trim()); });
+      }
+    }
+
+    // iterate rows and set data-label on each TD
+    var rows = table.querySelectorAll('tbody tr');
+    if (!rows.length) rows = table.querySelectorAll('tr'); // fallback
+
+    rows.forEach(function (tr) {
+      // skip header rows if we accidentally included them
+      if (tr.closest('thead')) return;
+      var tds = tr.querySelectorAll('td,th');
+      tds.forEach(function (td, idx) {
+        var label = headers[idx] || ('Column ' + (idx + 1));
+        // Only set if not already present (preserve any manual data-label)
+        if (!td.hasAttribute('data-label')) td.setAttribute('data-label', label);
+        // Set aria-label for reliable screen-reader reading: "Label: value"
+        var text = (td.textContent || '').trim().replace(/\s+/g, ' ');
+        td.setAttribute('aria-label', label + ': ' + text);
+        // wrap existing child nodes in a span.cell-value for style isolation if not already
+        if (!td.querySelector('.cell-value')) {
+          var span = document.createElement('span');
+          span.className = 'cell-value';
+          // move children into span
+          while (td.firstChild) span.appendChild(td.firstChild);
+          td.appendChild(span);
+        }
+      });
+    });
+  });
+})();
+</script>
 </body>
 </html>
 
