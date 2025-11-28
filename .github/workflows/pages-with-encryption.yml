@@ -23,11 +23,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Ruby / Bundler setup (build using your Gemfile so you can choose Jekyll version)
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.1 # change if you need a different Ruby version
+          ruby-version: 3.1
 
       - name: Cache Ruby gems
         uses: actions/cache@v4
@@ -43,32 +42,19 @@ jobs:
           bundle config set --local path 'vendor/bundle'
           bundle install --jobs 4 --retry 3
 
-      # Build the site with Jekyll (bundle exec ensures it uses your Gemfile's jekyll)
       - name: Build site with Jekyll
         run: bundle exec jekyll build --destination ./_site
 
-      # --- Encryption: PageCrypt ---
       - name: Set up Node for PageCrypt
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Cache npm
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
       - name: Encrypt pages with PageCrypt
-        # Expects _protected_pages.txt with lines like: path/to/page.html password123
         run: |
           if [ -f _protected_pages.txt ]; then
             set -o pipefail
-            # Read each line; first token = file (relative to repo root), second token = password
             while IFS= read -r file password || [ -n "$file" ]; do
-              # skip blank lines and comment lines
               [ -z "$file" ] && continue
               case "$file" in \#*) continue ;; esac
               echo "Encrypting _site/$file"
@@ -78,9 +64,9 @@ jobs:
             echo "_protected_pages.txt not found — skipping encryption step"
           fi
 
-      # Upload built site as artifact for pages deployment
+      # <-- IMPORTANT change: use v4 of the Pages artifact uploader
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./_site
 
