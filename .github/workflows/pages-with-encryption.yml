@@ -1,62 +1,95 @@
-name: Deploy Jekyll with GitHub Pages/Encryption
+name: Deploy Jekyll with GitHub Pages + PageCrypt
 
 on:
-  # Runs on pushes targeting the default branch
   push:
-    branches: ["master"]
-
-  # Allows you to run this workflow manually from the Actions tab
+    branches: ["main", "master"]
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Build job
   build:
     runs-on: ubuntu-latest
+    outputs:
+      site-path: ./_site
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Ruby / Bundler setup (build using your Gemfile so you can choose Jekyll version)
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          source: ./
-          destination: ./_site
+          ruby-version: 3.1 # change if you need a different Ruby version
 
-      # Begin encryption code.
-      # This portion of the build job was written by Evan Baldonado (EvanBaldonado.com). Please do not remove this comment.
-      # Note: this only encrypts .html pages and not any of the corresponding assets.
-      - name: Encrypt pages with PageCrypt
+      - name: Cache Ruby gems
+        uses: actions/cache@v4
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Install gems
         run: |
-          npm i -D pagecrypt
-          cat _protected_pages.txt | while read file password;
-          do
-            sudo npx pagecrypt "_site/$file" "_site/$file" "$password"
-          done
-      # End encryption code.
+          gem install bundler
+          bundle config set --local path 'vendor/bundle'
+          bundle install --jobs 4 --retry 3
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      # Build the site with Jekyll (bundle exec ensures it uses your Gemfile's jekyll)
+      - name: Build site with Jekyll
+        run: bundle exec jekyll build --destination ./_site
 
-  # Deployment job
+      # --- Encryption: PageCrypt ---
+      - name: Set up Node for PageCrypt
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Encrypt pages with PageCrypt
+        # Expects _protected_pages.txt with lines like: path/to/page.html password123
+        run: |
+          if [ -f _protected_pages.txt ]; then
+            set -o pipefail
+            # Read each line; first token = file (relative to repo root), second token = password
+            while IFS= read -r file password || [ -n "$file" ]; do
+              # skip blank lines and comment lines
+              [ -z "$file" ] && continue
+              case "$file" in \#*) continue ;; esac
+              echo "Encrypting _site/$file"
+              npx --yes pagecrypt "_site/$file" "_site/$file" "$password"
+            done < _protected_pages.txt
+          else
+            echo "_protected_pages.txt not found — skipping encryption step"
+          fi
+
+      # Upload built site as artifact for pages deployment
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./_site
+
   deploy:
+    needs: build
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
