@@ -54,11 +54,35 @@ jobs:
         run: |
           if [ -f _protected_pages.txt ]; then
             set -o pipefail
-            while IFS= read -r file password || [ -n "$file" ]; do
+          
+            while read -r file password || [ -n "$file" ]; do
+              # trim whitespace
+              file="$(echo "$file" | xargs)"
+              password="$(echo "${password:-}" | xargs)"
+          
+              # skip blank lines and comments
               [ -z "$file" ] && continue
               case "$file" in \#*) continue ;; esac
-              echo "Encrypting _site/$file"
-              npx --yes pagecrypt "_site/$file" "_site/$file" "$password"
+          
+              # If user listed a .md file, convert to .html (Jekyll output)
+              if [[ "$file" == *.md ]]; then
+                file="${file%.md}.html"
+              fi
+          
+              sitefile="_site/$file"
+          
+              if [ ! -f "$sitefile" ]; then
+                echo "Warning: $sitefile not found — skipping."
+                continue
+              fi
+          
+              if [ -z "$password" ]; then
+                echo "Warning: no password found for $file — skipping."
+                continue
+              fi
+          
+              echo "Encrypting $sitefile"
+              npx --yes pagecrypt "$sitefile" "$sitefile" "$password"
             done < _protected_pages.txt
           else
             echo "_protected_pages.txt not found — skipping encryption step"
