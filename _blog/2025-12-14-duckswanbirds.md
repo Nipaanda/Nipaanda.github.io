@@ -9,8 +9,7 @@ info: and other birds
 I think I'm slowly figuring the camera stuff out.<br>
 <br>
 Not with the Blue Tit or the Eurasian Coot, clearly. They are way too noisy.<br>
-<br>
-But the ducks look decent.<br>
+But the ducks look decent. 🥹<br>
 <br>
 The swans were messing with me. At first they were in front of me, but due to how the river is flowing I wasn't able to just run ahead and wait there. 
 The river is doing a -| thing and I was in the bottom left.
