@@ -3,7 +3,7 @@ layout: post
 title: "Freibergsee and Ski Flying Ramp"
 date: 2025-06-14
 thumbnail: https://i.imgur.com/XrPrH1Fl.jpeg 
-info: also: ducks
+info: also ducks
 ---
 On this Saturday we went to the Freibergsee in Oberstdorf. You might have heard of the place if you follow winter sports? Anyway, there is this ski flying ramp thingy, where people on skis sit way up high, build up speed and then "jump" or rather fly ridiculously long distances. In this case more than 200 meters. <br>
 <br>
