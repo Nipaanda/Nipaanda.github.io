@@ -4,7 +4,7 @@ description: "i don't know what to put here"
 baseurl: ""
 markdown: kramdown
 name: "Nipaanda Blog"
-url: "https://nipaanda.org/"
+url: "https://nipaanda.org"
 
 collections:
   blog:
