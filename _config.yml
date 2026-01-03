@@ -3,6 +3,8 @@ title: "Nipaanda"
 description: "i don't know what to put here"
 baseurl: ""
 markdown: kramdown
+name: "Nipaanda Blog"
+url: "nipaanda.github.io/blog"
 
 collections:
   blog:
