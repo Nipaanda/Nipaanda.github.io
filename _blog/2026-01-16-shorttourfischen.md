@@ -2,7 +2,7 @@
 layout: post
 title: "Short Tour in Fischen"
 date: 2026-01-16
-thumbnail: https://i.imgur.com/arpn21Gl.jpeg 
+thumbnail: https://i.imgur.com/dpaVe8Ul.jpeg 
 info: birds, birds, birds
 ---
 
@@ -11,8 +11,7 @@ First off, not sure if I'm gonna do a post to summarize 2025.
 A bunch of stuff happened that I'd like to archive, but I don't feel motivated at the moment. 🫠
 <br>
 <br>
-Since my grandpa's funeral last autumn I've started talking (more) to and visiting my dad again. 
-<br>
+Since my grandpa's funeral last autumn I've started talking (more) to and visiting my dad again.
 Since he's also into photography on January 16th we went on a short walk to take some photos in Fischen (very close to the squirrel forest from earlier posts).
 <br>
 <br>
