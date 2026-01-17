@@ -2,7 +2,7 @@
 layout: post
 title: "Short Tour in Fischen"
 date: 2026-01-16
-thumbnail: https://i.imgur.com/dpaVe8Ul.jpeg 
+thumbnail: https://i.imgur.com/w1W7urDl.jpeg
 info: birds, birds, birds
 ---
 
